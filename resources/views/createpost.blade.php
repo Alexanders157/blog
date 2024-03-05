@@ -90,19 +90,20 @@
 <br>
 <main>
     <div class="container">
-        <form action="/submit" method="post">
-            <label for="choice">Выбрать категорию:</label>
-            <select id="choice" name="choice">
-                <option value="option1">Вариант 1</option>
-                <option value="option2">Вариант 2</option>
-                <option value="option3">Вариант 3</option>
-            </select>
+        <h2>Создать пост</h2>
 
-            <button type="submit">Выбрать</button>
-        </form>
-        <h2>Отправить сообщение</h2>
+        <form action="{{ route('create') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <div>
+                <label for="choice">Выбрать категорию:</label>
+                <select id="choice" name="choice">
+                    <option value="option1">Вариант 1</option>
+                    <option value="option2">Вариант 2</option>
+                    <option value="option3">Вариант 3</option>
+                </select>
 
-        <form action="#" method="post" enctype="multipart/form-data">
+                <button type="submit">Выбрать</button>
+            </div>
             <label for="message">Сообщение:</label><br>
             <textarea id="message" name="message" rows="10" cols="50" required></textarea><br>
             <label for="attachment">Выберите файл для вложения:</label><br>
