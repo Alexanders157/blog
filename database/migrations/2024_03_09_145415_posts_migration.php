@@ -14,6 +14,12 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('title', 255);
+            $table->string('category', 50)->nullable();
+            $table->date('publication_date');
+            $table->longText('content');
+            $table->string('author', 50);
+            $table->date('update_date');
         });
     }
 
