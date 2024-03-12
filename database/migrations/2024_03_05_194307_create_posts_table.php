@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('title')->comment('Заголовок');
             $table->string('description')->comment('Описание');
+            $table->string('category', 50)->nullable();
+            $table->date('publication_date');
+            $table->longText('content');
+            $table->string('author', 50);
             $table->timestamps();
         });
     }

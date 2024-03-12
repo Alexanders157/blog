@@ -20,21 +20,21 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard', ['user' => User::find(1)]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+})
+    ->middleware(['auth', 'verified'])->name('dashboard');
 
-
-Route::get('/allposts', function () {
+Route::get('posts', function () {
     return view('allposts');
-});
+})->name('posts');
 
-Route::get('/createpost', function () {
+Route::get('/post/create', function () {
     return view('createpost');
 });
 
 Route::post('/create', [\App\Http\Controllers\PostController::class, 'store'])->name('create');
 
 Route::get('/post', function () {
-    return view('post');
+    return view('post', ['cat' => new \App\Libraries\Cat('Jon', 'Red Cat')]);
 });
 
 Route::middleware('auth')->group(function () {
