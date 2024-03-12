@@ -38,8 +38,8 @@ class PostController extends Controller
         //return redirect()->back();
 
         $cat = new Cat('Jon', 'Рыжий кот', 20);
-        User::factory(10)->create();
-        dd($cat->run());
-        #return ;
+
+
+        //return ;
     }
 }
