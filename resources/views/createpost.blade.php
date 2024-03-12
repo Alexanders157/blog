@@ -104,6 +104,10 @@
 
                 <button type="submit">Выбрать</button>
             </div>
+            <label for="message">Заголовок:</label><br>
+            <label for="title"></label>
+            <input id="title" name="title" required autofocus> </input>
+            <br>
             <label for="message">Сообщение:</label><br>
             <textarea id="message" name="message" rows="10" cols="50" required></textarea><br>
             <label for="attachment">Выберите файл для вложения:</label><br>
