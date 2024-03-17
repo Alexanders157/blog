@@ -16,7 +16,11 @@ class Post extends Model
 
     protected $fillable = [
         'title',
-        'description'
+        'category',
+        'publication_date',
+        'content',
+        'author',
+        'update_date',
     ];
 
     protected $hidden = [
