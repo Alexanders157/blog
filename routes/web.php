@@ -23,19 +23,8 @@ Route::get('/dashboard', function () {
 })
     ->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('posts', function () {
-    return view('allposts');
-})->name('posts');
-
-Route::get('/post/create', function () {
-    return view('createpost');
-});
 
 Route::post('/create', [\App\Http\Controllers\PostController::class, 'store'])->name('create');
-
-Route::get('/post', function () {
-    return view('post', ['cat' => new \App\Libraries\Cat('Jon', 'Red Cat')]);
-});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -43,4 +32,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

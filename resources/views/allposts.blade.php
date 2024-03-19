@@ -67,31 +67,14 @@
 </header>
 
 <main>
-    <article class="blog-post">
-        <h2>Заголовок поста 1</h2>
-        <p>Текст. </p>
-        <a href="#">Читать далее</a>
-    </article>
-    <article class="blog-post">
-        <h2>Заголовок поста 2</h2>
-        <p>Текст. </p>
-        <a href="#">Читать далее</a>
-    </article>
-    <article class="blog-post">
-        <h2>Заголовок поста 3</h2>
-        <p>Текст. </p>
-        <a href="#">Читать далее</a>
-    </article>
-    <article class="blog-post">
-        <h2>Заголовок поста 4</h2>
-        <p>Текст. </p>
-        <a href="#">Читать далее</a>
-    </article>
-    <article class="blog-post">
-        <h2>Заголовок поста 5</h2>
-        <p>Текст. </p>
-        <a href="#">Читать далее</a>
-    </article>
+    @foreach($posts as $post)
+        <article class="blog-post">
+            <p> <b> {{ $post->title }} </b></p>
+            <p>{{ $post->description }}</p>
+            <a href="{{ route('post/get-post', $post->id) }}">Читать далее</a>
+        </article>
+    @endforeach
+
     <div class="last-next-page-container">
         <a href="#">Предыдущая страница</a>
         <a href="#">1</a>
