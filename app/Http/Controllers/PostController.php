@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
+use App\Libraries\Animal\Hippo;
 use App\Libraries\Cat;
 use App\Models\Post;
 use App\Models\User;
@@ -37,8 +38,11 @@ class PostController extends Controller
         //DB::
         //return redirect()->back();
 
-        $cat = new Cat('Jon', 'Рыжий кот', 20);
+        //$cat = new Cat('Jon', 'Рыжий кот', 20);
+        $hippo = new Hippo('Hi, Jon!');
+        $hippo->changeColor()
 
+        (new Hippo('Hi, Jon!'))->jump();
 
         //return ;
     }

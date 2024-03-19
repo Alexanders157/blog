@@ -16,12 +16,12 @@ class Hippo extends Animal implements HippoInterface
         return "Бегемот прыгает со скоростью " . $this->speed . " км/ч";
     }
 
-    public function speak()
+    public function speak(): string
     {
         return "Бегемот говорит: " . $this->properties['phrase'];
     }
 
-    public function changeColor($color)
+    public function changeColor(string $color): string
     {
         $this->color = $color;
         return "Цвет бегемота изменён на " . $this->color;

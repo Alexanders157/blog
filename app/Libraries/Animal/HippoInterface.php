@@ -4,6 +4,6 @@ namespace App\Libraries\Animal;
 
 interface HippoInterface
 {
-    public function speak();
-    public function changeColor($color);
+    public function speak(): string;
+    public function changeColor(string $color): string;
 }

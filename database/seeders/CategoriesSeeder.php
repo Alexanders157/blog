@@ -14,46 +14,46 @@ class CategoriesSeeder extends Seeder
     public function run()
     {
         DB::table('categories')->insert([
-           'name' => 'Коты',
+           'title' => 'Коты',
            'description' => 'Категория посвящена котам',
-           'created_date' => now(),
-           'updated_date' => now(),
+           'created_at' => now(),
+           'updated_at' => now(),
            ]);
 
 
         DB::table('categories')->insert([
-            'name' => 'Собаки',
+            'title' => 'Собаки',
             'description' => 'Категория посвящена собакам',
-            'created_date' => now(),
-            'updated_date' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('categories')->insert([
-            'name' => 'Птицы',
+            'title' => 'Птицы',
             'description' => 'Категория посвящена птицам',
-            'created_date' => now(),
-            'updated_date' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('categories')->insert([
-            'name' => 'Рыбы',
+            'title' => 'Рыбы',
             'description' => 'Категория посвящена рыбам',
-            'created_date' => now(),
-            'updated_date' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('categories')->insert([
-            'name' => 'Экзотические животные',
+            'title' => 'Экзотические животные',
             'description' => 'Категория посвящена экзотическим животным',
-            'created_date' => now(),
-            'updated_date' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('categories')->insert([
-            'name' => 'Сельскохозяйственные животные',
+            'title' => 'Сельскохозяйственные животные',
             'description' => 'Категория посвящена сельскохозяйственным животным',
-            'created_date' => now(),
-            'updated_date' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
     }
 }

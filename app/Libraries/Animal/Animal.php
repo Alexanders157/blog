@@ -2,10 +2,14 @@
 
 namespace App\Libraries\Animal;
 
-abstract class Amimal {
+abstract class Animal {
 
     protected $color;
     protected $speed;
 
-    abstract public function jump();
+    abstract protected function jump();
+
+    public function run() {
+        return '50km/h';
+    }
 }

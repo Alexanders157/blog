@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
+ * @extends Factory<Post>
  */
 class PostFactory extends Factory
 {
@@ -14,12 +15,14 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->sentence,
+            'title' => $this->faker->title,
+            'description' => $this->faker->sentence,
             'category' => $this->faker->word,
             'publication_date' => $this->faker->date(),
             'content' => $this->faker->paragraph,
             'author' => $this->faker->name,
-            'update_date' => $this->faker->date(),
+            'created_at' => now(),
+            'updated_at' => $this->faker->date,
         ];
     }
 }
