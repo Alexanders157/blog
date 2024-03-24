@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use App\Libraries\Cat;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +23,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard', ['user' => User::find(1)]);
-})
-    ->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('posts', function () {
     return view('allposts');
@@ -36,6 +38,10 @@ Route::post('/create', [\App\Http\Controllers\PostController::class, 'store'])->
 Route::get('/post', function () {
     return view('post', ['cat' => new \App\Libraries\Cat('Jon', 'Red Cat')]);
 });
+Route::post('/posts', 'PostController@store');
+Route::get('/posts/{id}/edit', 'PostController@edit');
+Route::get('/posts/{id}', 'PostController@show');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

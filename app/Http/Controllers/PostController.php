@@ -6,11 +6,10 @@ use App\Http\Requests\StorePostRequest;
 use App\Libraries\Animal\Hippo;
 use App\Libraries\Cat;
 use App\Models\Post;
-use App\Models\User;
-use http\Exception\RuntimeException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Mockery\Exception;
+
+
 
 class PostController extends Controller
 {
@@ -40,10 +39,41 @@ class PostController extends Controller
 
         //$cat = new Cat('Jon', 'Рыжий кот', 20);
         $hippo = new Hippo('Hi, Jon!');
-        $hippo->changeColor()
+        $hippo->changeColor();
 
         (new Hippo('Hi, Jon!'))->jump();
 
         //return ;
+
+        $title = $request->input('title');
+        $content = $request->input('content');
+        DB::insert('INSERT INTO posts (title, content) VALUES (?, ?)', [$title, $content]);
+        return redirect('/posts');
     }
+
+    public function show($id)
+    {
+        $post = Post::find($id);
+
+        return view('post', ['post' => $post]);
+    }
+    public function create()
+    {
+        return view('post.create');
+    }
+
+    public function edit($id)
+    {
+        $post = DB::select('SELECT * FROM posts WHERE id = ?', [$id]);
+        return view('post.edit', ['post' => $post]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $title = $request->input('title');
+        $content = $request->input('content');
+        DB::update('UPDATE posts SET title = ?, content = ? WHERE id = ?', [$title, $content, $id]);
+        return redirect('/posts');
+    }
+
 }

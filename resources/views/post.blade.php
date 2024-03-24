@@ -89,10 +89,9 @@
 
 <main>
     <div class="container">
-        <article id="main-col">
-            <h1> {{ $cat->name }} </h1>
-            <h2> {{ $cat->breed }} </h2>
-            <p>Текст поста...</p>
+        <div id="main-col">
+            <h1>{{ $post->title }}</h1>
+            <p>{{ $post->content }}</p>
             <div id="comments">
                 <br>
 
@@ -111,7 +110,7 @@
                 <p>Текст комментария...</p>
             </div>
     </div>
-    </article>
+    </div>
     <br>
     <br>
 </main>

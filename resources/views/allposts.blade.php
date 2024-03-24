@@ -67,31 +67,31 @@
 </header>
 
 <main>
-    <article class="blog-post">
+    <div class="blog-post">
         <h2>Заголовок поста 1</h2>
         <p>Текст. </p>
         <a href="#">Читать далее</a>
-    </article>
-    <article class="blog-post">
+    </div>
+    <div class="blog-post">
         <h2>Заголовок поста 2</h2>
         <p>Текст. </p>
         <a href="#">Читать далее</a>
-    </article>
-    <article class="blog-post">
+    </div>
+    <div class="blog-post">
         <h2>Заголовок поста 3</h2>
         <p>Текст. </p>
         <a href="#">Читать далее</a>
-    </article>
-    <article class="blog-post">
+    </div>
+    <div class="blog-post">
         <h2>Заголовок поста 4</h2>
         <p>Текст. </p>
         <a href="#">Читать далее</a>
-    </article>
-    <article class="blog-post">
+    </div>
+    <div class="blog-post">
         <h2>Заголовок поста 5</h2>
         <p>Текст. </p>
         <a href="#">Читать далее</a>
-    </article>
+    </div>
     <div class="last-next-page-container">
         <a href="#">Предыдущая страница</a>
         <a href="#">1</a>
