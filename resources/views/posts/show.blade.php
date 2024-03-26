@@ -90,6 +90,8 @@
 <main>
     <div class="container">
         <div id="main-col">
+            <div><img src="{{ asset('storage/' . $post->photo) }}" alt="Изображение поста"></div>
+
             <h1>{{ $post->title }}</h1>
             <p>{{ $post->content }}</p>
             <div id="comments">

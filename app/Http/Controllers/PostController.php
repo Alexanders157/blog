@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
 use App\Libraries\Animal\Hippo;
+use App\Models\Category;
 use App\Models\Post;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -26,7 +29,7 @@ class PostController extends Controller
 
     public function show(Post $post): View|\Illuminate\Foundation\Application|Factory|Application
     {
-        return view('posts.post', compact('post'));
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -34,7 +37,7 @@ class PostController extends Controller
      */
     public function create(): \Illuminate\Foundation\Application|View|Factory|Application
     {
-        return view('posts.create');
+        return view('posts.create',['categories' => Category::all()]);
     }
 
    // public function show(Post $post)
@@ -52,40 +55,20 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        //$data = $request->validated();
-//
-        //$connection = mysqli_connect("172.17.0.1", "root", "12345", "laravel");
-        //$query = "INSERT INTO posts (title, description) VALUES ('{$data['title']}', '{$data['message']}')";
-//
-        //$result = mysqli_query($connection, $query);
-//
-        //if ($result) {
-        //    return redirect()->back();
-        //}
-//
-        ////return throw new RuntimeException('NO');
-        //$post = new Post();
-//
-        //Post::query()->create([
-        //    'title' => $data['title'],
-        //    'description' => $data['message']
-        //]);
-//
-        //DB::
-        //return redirect()->back();
+        $data = $request->validated();
 
-        //$cat = new Cat('Jon', 'Рыжий кот', 20);
-        $hippo = new Hippo('Hi, Jon!');
-        $hippo->changeColor();
+        $data['photo'] = $data['photo']?->store('posts', 'public');
 
-        (new Hippo('Hi, Jon!'))->jump();
+        $data['publication_date'] = now();
 
-        //return ;
+        if (!array_key_exists('author', $data)) {
+            $data['author'] = 'Неизвестный';
+        }
 
-        $title = $request->input('title');
-        $content = $request->input('content');
-        DB::insert('INSERT INTO posts (title, content) VALUES (?, ?)', [$title, $content]);
-        return redirect('/posts');
+        /** @var Post $post */
+        $post = Post::query()->create($data);
+
+        return redirect("/posts/{$post->id}");
     }
 
     public function edit($id)
