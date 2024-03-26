@@ -3,16 +3,15 @@
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('post')
+Route::prefix('posts')
     ->group(function () {
-        //ДЗ
-        Route::get('{post}', [PostController::class, 'show'])
-            ->name('get-post');
 
-        Route::get('all', [PostController::class, 'index'])
-            ->name('all');
+        Route::get('/all', [PostController::class, 'index'])->name('all');
 
-        Route::get('create', static function () {
-            return view('createpost');
-        });
-})->name('post');
+        Route::get('/{post}', [PostController::class, 'show'])->name('get-post');
+        Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('edit-post');
+
+        Route::get('/create', [PostController::class, 'create'])->name('create-post');
+        Route::post('/posts', [PostController::class, 'store'])->name('store-post');
+
+})->name('posts');

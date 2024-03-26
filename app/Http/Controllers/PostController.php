@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Libraries\Animal\Hippo;
 use App\Models\Post;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
-
 
 class PostController extends Controller
 {
@@ -20,7 +21,7 @@ class PostController extends Controller
             return redirect()->back();
         }
 
-        return view('allposts', ['posts' => $posts]);
+        return view('allposts', compact('posts'));
     }
 
    // public function show(Post $post)
@@ -74,15 +75,19 @@ class PostController extends Controller
         return redirect('/posts');
     }
 
-    public function show($id): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function show($id): View|\Illuminate\Foundation\Application|Factory|Application
     {
         $post = Post::find($id);
 
         return view('post', ['post' => $post]);
     }
-    public function create()
+
+    /**
+     * @return Application|Factory|View|\Illuminate\Foundation\Application
+     */
+    public function create(): \Illuminate\Foundation\Application|View|Factory|Application
     {
-        return view('posts.create');
+        return view('create');
     }
 
     public function edit($id)

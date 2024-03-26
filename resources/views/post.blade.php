@@ -96,7 +96,7 @@
                 <br>
 
                 <form action="#" method="post" enctype="multipart/form-data">
-                    <h3 label for="message" >Комментарии:</label><br>
+                    <h3 label for="message" >Комментарии:</h3><br>
                         <textarea id="message" name="message" rows="10" cols="50" required></textarea><br>
                         <label for="attachment">Выберите файл для вложения:</label><br>
                         <input type="file" id="attachment" name="attachment" accept="image/*">

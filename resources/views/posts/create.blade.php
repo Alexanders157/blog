@@ -97,21 +97,25 @@
             <div>
                 <label for="choice">Выбрать категорию:</label>
                 <select id="choice" name="choice">
-                    <option value="option1">Вариант 1</option>
-                    <option value="option2">Вариант 2</option>
-                    <option value="option3">Вариант 3</option>
+                    <option value="1">Вариант 1</option>
+                    <option value="2">Вариант 2</option>
+                    <option value="3">Вариант 3</option>
                 </select>
 
                 <button type="submit">Выбрать</button>
             </div>
-            <label for="message">Заголовок:</label><br>
+
+            <label for="title">Заголовок:</label><br>
             <label for="title"></label>
-            <input id="title" name="title" required autofocus> </input>
+            <input id="title" name="title" required autofocus>
+
             <br>
-            <label for="message">Сообщение:</label><br>
-            <textarea id="message" name="message" rows="10" cols="50" required></textarea><br>
-            <label for="attachment">Выберите файл для вложения:</label><br>
-            <input type="file" id="attachment" name="attachment" accept="image/*">
+
+            <label for="description">Сообщение:</label><br>
+            <textarea id="description" name="description" rows="10" cols="50" required></textarea><br>
+
+            <label for="photo">Выберите файл для вложения:</label><br>
+            <input type="file" id="photo" name="photo" accept="image/*">
             <br>
             <br>
             <input type="submit" value="Отправить">
