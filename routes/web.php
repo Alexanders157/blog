@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
@@ -34,7 +35,7 @@ Route::get('/post', function () {
 Route::post('/posts', 'PostController@store');
 Route::get('/posts/{id}/edit', 'PostController@edit');
 Route::get('/posts/{id}', 'PostController@show');
-
+Route::get('/posts', [PostController::class, 'create']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

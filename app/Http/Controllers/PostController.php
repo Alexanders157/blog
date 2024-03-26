@@ -23,8 +23,8 @@ class PostController extends Controller
         return view('allposts', ['posts' => $posts]);
     }
 
-    public function show(Post $post)
-    {
+   // public function show(Post $post)
+   // {
         //$connection = mysqli_connect("172.17.0.1", "root", "12345", "laravel");
         //$query = "INSERT INTO posts (title, description) VALUES ('{$data['title']}', '{$data['message']}')";
 //
@@ -33,8 +33,8 @@ class PostController extends Controller
         //if ($result) {
         //    return redirect()->back();
         //}
-        dd($post);
-    }
+  //      dd($post);
+  //  }
 
     public function store(StorePostRequest $request)
     {
@@ -74,7 +74,7 @@ class PostController extends Controller
         return redirect('/posts');
     }
 
-    public function show($id)
+    public function show($id): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         $post = Post::find($id);
 
@@ -82,7 +82,7 @@ class PostController extends Controller
     }
     public function create()
     {
-        return view('post.create');
+        return view('posts.create');
     }
 
     public function edit($id)
