@@ -25,13 +25,6 @@ Route::get('/dashboard', function () {
     return view('dashboard', ['user' => User::find(1)]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('posts', function () {
-    return view('allposts');
-})->name('posts');
-
-Route::get('/post/create', function () {
-    return view('createpost');
-});
 
 Route::post('/create', [\App\Http\Controllers\PostController::class, 'store'])->name('create');
 
@@ -49,4 +42,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

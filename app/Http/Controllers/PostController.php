@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
 use App\Libraries\Animal\Hippo;
-use App\Libraries\Cat;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +12,30 @@ use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
+    public function index()
+    {
+        $posts = Post::all();
+
+        if (!$posts) {
+            return redirect()->back();
+        }
+
+        return view('allposts', ['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        //$connection = mysqli_connect("172.17.0.1", "root", "12345", "laravel");
+        //$query = "INSERT INTO posts (title, description) VALUES ('{$data['title']}', '{$data['message']}')";
+//
+        //$result = mysqli_query($connection, $query);
+//
+        //if ($result) {
+        //    return redirect()->back();
+        //}
+        dd($post);
+    }
+
     public function store(StorePostRequest $request)
     {
         //$data = $request->validated();
