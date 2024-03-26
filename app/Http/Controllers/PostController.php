@@ -24,6 +24,19 @@ class PostController extends Controller
         return view('allposts', compact('posts'));
     }
 
+    public function show(Post $post): View|\Illuminate\Foundation\Application|Factory|Application
+    {
+        return view('posts.post', compact('post'));
+    }
+
+    /**
+     * @return Application|Factory|View|\Illuminate\Foundation\Application
+     */
+    public function create(): \Illuminate\Foundation\Application|View|Factory|Application
+    {
+        return view('posts.create');
+    }
+
    // public function show(Post $post)
    // {
         //$connection = mysqli_connect("172.17.0.1", "root", "12345", "laravel");
@@ -73,21 +86,6 @@ class PostController extends Controller
         $content = $request->input('content');
         DB::insert('INSERT INTO posts (title, content) VALUES (?, ?)', [$title, $content]);
         return redirect('/posts');
-    }
-
-    public function show($id): View|\Illuminate\Foundation\Application|Factory|Application
-    {
-        $post = Post::find($id);
-
-        return view('post', ['post' => $post]);
-    }
-
-    /**
-     * @return Application|Factory|View|\Illuminate\Foundation\Application
-     */
-    public function create(): \Illuminate\Foundation\Application|View|Factory|Application
-    {
-        return view('create');
     }
 
     public function edit($id)

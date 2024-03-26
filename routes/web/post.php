@@ -4,14 +4,13 @@ use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('posts')
-    ->group(function () {
-
+    ->name('posts')
+    ->group(static function () {
+        Route::get('/create', [PostController::class, 'create'])->name('create');
         Route::get('/all', [PostController::class, 'index'])->name('all');
 
-        Route::get('/{post}', [PostController::class, 'show'])->name('get-post');
-        Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('edit-post');
+        Route::get('/{post}', [PostController::class, 'show'])->name('get');
+        Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('edit');
 
-        Route::get('/create', [PostController::class, 'create'])->name('create-post');
-        Route::post('/posts', [PostController::class, 'store'])->name('store-post');
-
-})->name('posts');
+        Route::post('/store', [PostController::class, 'store'])->name('store');
+});
