@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
-use App\Libraries\Animal\Hippo;
 use App\Models\Post;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -17,16 +16,16 @@ class PostController extends Controller
     {
         $posts = Post::all();
 
-        if (!$posts) {
+        if ($posts->isEmpty()) {
             return redirect()->back();
         }
 
-        return view('allposts', compact('posts'));
+        return view('posts', compact('posts'));
     }
 
-    public function show(Post $post): View|\Illuminate\Foundation\Application|Factory|Application
+    public function show(Post $post): View
     {
-        return view('posts.post', compact('post'));
+        return view('posts.show', compact('post'));
     }
 
     /**
