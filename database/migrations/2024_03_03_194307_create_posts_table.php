@@ -18,11 +18,11 @@ return new class extends Migration
             ->constrained('categories')
             ->cascadeOnUpdate()
             ->cascadeOnDelete();
-
             $table->string('title')->comment('Заголовок');
             $table->string('description')->comment('Описание');
             $table->date('publication_date');
             $table->longText('content');
+            $table->string('photo');
             $table->string('author', 50);
             $table->timestamps();
         });

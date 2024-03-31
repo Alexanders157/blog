@@ -92,17 +92,15 @@
     <div class="container">
         <h2>Создать пост</h2>
 
-        <form action="{{ route('create') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('posts/store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div>
                 <label for="choice">Выбрать категорию:</label>
-                <select id="choice" name="choice">
-                    <option value="1">Вариант 1</option>
-                    <option value="2">Вариант 2</option>
-                    <option value="3">Вариант 3</option>
+                <select id="choice" name="category_id">
+                    @foreach( $categories as $category )
+                        <option value="{{$category->id}}"> {{ $category->title }}</option>
+                    @endforeach
                 </select>
-
-                <button type="submit">Выбрать</button>
             </div>
 
             <label for="title">Заголовок:</label><br>
@@ -111,8 +109,13 @@
 
             <br>
 
-            <label for="description">Сообщение:</label><br>
-            <textarea id="description" name="description" rows="10" cols="50" required></textarea><br>
+            <label for="description">Описание:</label><br>
+            <textarea id="description" name="description" rows="10" cols="50" required></textarea>
+
+            <br>
+
+            <label for="content">Контент:</label><br>
+            <textarea id="content" name="content" rows="10" cols="50" required></textarea><br>
 
             <label for="photo">Выберите файл для вложения:</label><br>
             <input type="file" id="photo" name="photo" accept="image/*">

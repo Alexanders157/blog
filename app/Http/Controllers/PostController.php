@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
+use App\Libraries\Animal\Hippo;
 use App\Models\Post;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -16,16 +17,16 @@ class PostController extends Controller
     {
         $posts = Post::all();
 
-        if ($posts->isEmpty()) {
+        if (!$posts) {
             return redirect()->back();
         }
 
-        return view('posts', compact('posts'));
+        return view('allposts', compact('posts'));
     }
 
-    public function show(Post $post): View
+    public function show(Post $post): View|\Illuminate\Foundation\Application|Factory|Application
     {
-        return view('posts.show', compact('post'));
+        return view('posts.post', compact('post'));
     }
 
     /**
@@ -33,8 +34,7 @@ class PostController extends Controller
      */
     public function create(): \Illuminate\Foundation\Application|View|Factory|Application
     {
-        $post = New Post();
-        return view('posts.create', compact('post'));
+        return view('posts.create');
     }
 
    // public function show(Post $post)
@@ -88,15 +88,18 @@ class PostController extends Controller
         return redirect('/posts');
     }
 
-    public function edit ($id)
+    public function edit($id)
     {
-        $post = Post::find($id);
-        return view('posts.edit', compact('post'));
+        $post = DB::select('SELECT * FROM posts WHERE id = ?', [$id]);
+        return view('post.edit', ['post' => $post]);
     }
 
-    public function update (Request $request, $id) {
-        $post = Post::find($id);
-        $post->update ($request->all());
+    public function update(Request $request, $id)
+    {
+        $title = $request->input('title');
+        $content = $request->input('content');
+        DB::update('UPDATE posts SET title = ?, content = ? WHERE id = ?', [$title, $content, $id]);
         return redirect('/posts');
     }
+
 }
