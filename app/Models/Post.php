@@ -24,6 +24,7 @@ class Post extends Model
         'content',
         'author',
         'update_date',
+        'video_url',
     ];
 
     protected $hidden = [

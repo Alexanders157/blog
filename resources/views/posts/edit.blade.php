@@ -72,9 +72,7 @@
         }
 
     </style>
-
-
-    <title>Блог</title>
+    <title>Редактирование поста</title>
 </head>
 <body>
 <header>
@@ -90,26 +88,24 @@
 <main>
     <div class="container">
         <div id="main-col">
-            <h1>{{ $post->title }}</h1>
-            <p>{{ $post->content }}</p>
-            <div id="comments">
-                <br>
+            <h1>Редактирование поста</h1>
+            <form action="{{ route('posts.update', $post->id) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <label for="title">Заголовок:</label><br>
+                <input type="text" id="title" name="title" value="{{ $post->title }}" required><br>
 
-                <form action="#" method="post" enctype="multipart/form-data">
-                    <h3 label for="message" >Комментарии:</h3><br>
-                        <textarea id="message" name="message" rows="10" cols="50" required></textarea><br>
-                        <label for="attachment">Выберите файл для вложения:</label><br>
-                        <input type="file" id="attachment" name="attachment" accept="image/*">
-                        <br>
-                        <br>
-                        <input type="submit" value="Отправить">
-                </form>
-                <br>
-                <br>
-                <p><strong>Имя комментатора</strong></p>
-                <p>Текст комментария...</p>
-            </div>
-    </div>
+                <label for="content">Содержание:</label><br>
+                <textarea id="content" name="content" rows="10" cols="50" required>{{ $post->content }}</textarea><br>
+
+                <label for="attachment">Выберите файл для вложения:</label><br>
+                <input type="file" id="attachment" name="attachment" value="{{ $post->video_url }}" accept="image/*"><br> <br>
+
+                <label for="video">Вставить ссылку на видео:</label><br>
+                <input type="text" name="video_url" value="{{ $post->video_url }}" />
+                <input type="submit" value="Сохранить изменения">
+            </form>
+        </div>
     </div>
     <br>
     <br>

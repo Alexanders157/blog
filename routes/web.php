@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\PostController;
+use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,8 +32,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/post/create', [PostController::class, 'create'])->name('create');
+
 Route::get('/posts', [PostsController::class, 'index']);
 
-Route::get('/post/get-post', [PostController::class, 'show']);
+Route::get('post/{id}', [PostController::class, 'show'])->name('post/get-post');
+
+Route::get('post/{id}/edit', [PostController::class, 'edit'])->name('edit');
+
+Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
 
 require __DIR__ . '/auth.php';

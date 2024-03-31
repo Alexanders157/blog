@@ -92,7 +92,7 @@
     <div class="container">
         <h2>Создать пост</h2>
 
-        <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('create') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div>
                 <label for="choice">Выбрать категорию:</label>

@@ -33,7 +33,8 @@ class PostController extends Controller
      */
     public function create(): \Illuminate\Foundation\Application|View|Factory|Application
     {
-        return view('posts.create');
+        $post = New Post();
+        return view('posts.create', compact('post'));
     }
 
    // public function show(Post $post)
@@ -87,18 +88,15 @@ class PostController extends Controller
         return redirect('/posts');
     }
 
-    public function edit($id)
+    public function edit ($id)
     {
-        $post = DB::select('SELECT * FROM posts WHERE id = ?', [$id]);
-        return view('post.edit', ['post' => $post]);
+        $post = Post::find($id);
+        return view('posts.edit', compact('post'));
     }
 
-    public function update(Request $request, $id)
-    {
-        $title = $request->input('title');
-        $content = $request->input('content');
-        DB::update('UPDATE posts SET title = ?, content = ? WHERE id = ?', [$title, $content, $id]);
+    public function update (Request $request, $id) {
+        $post = Post::find($id);
+        $post->update ($request->all());
         return redirect('/posts');
     }
-
 }
