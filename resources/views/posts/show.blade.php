@@ -82,7 +82,7 @@
     <p class="upper-text a" align=left><a href="/posts"> Главная </a></p>
     <p class="upper-text a" align=left><a href="#"> Категории </a></p>
     <p class="upper-text a" align=left><a href="/posts"> Все посты </a></p>
-    <p class="upper-text a" align=left><a href="#"> Создать пост </a></p>
+    <p class="upper-text a" align=left><a href="/post/create"> Создать пост </a></p>
     <p class="upper-text a" align=left><a href="#"> Контакты </a></p>
 </header>
 <br>

@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Category;
 
 class PostController extends Controller
 {
@@ -21,12 +22,12 @@ class PostController extends Controller
             return redirect()->back();
         }
 
-        return view('allposts', compact('posts'));
+        return view('posts', compact('posts'));
     }
 
     public function show(Post $post): View|\Illuminate\Foundation\Application|Factory|Application
     {
-        return view('posts.post', compact('post'));
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -34,7 +35,8 @@ class PostController extends Controller
      */
     public function create(): \Illuminate\Foundation\Application|View|Factory|Application
     {
-        return view('posts.create');
+        $categories = Category::all();
+        return view('posts.create', compact('categories'));
     }
 
    // public function show(Post $post)
@@ -75,23 +77,38 @@ class PostController extends Controller
         //return redirect()->back();
 
         //$cat = new Cat('Jon', 'Рыжий кот', 20);
-        $hippo = new Hippo('Hi, Jon!');
-        $hippo->changeColor();
+        //$hippo = new Hippo('Hi, Jon!');
+        //$hippo->changeColor();
 
-        (new Hippo('Hi, Jon!'))->jump();
+        //(new Hippo('Hi, Jon!'))->jump();
 
         //return ;
 
         $title = $request->input('title');
         $content = $request->input('content');
-        DB::insert('INSERT INTO posts (title, content) VALUES (?, ?)', [$title, $content]);
+
+        $post = new Post();
+        $post->title = $request->title;
+        $post->body = $request->description;
+        $post->save();
+
+        $qrCode = QrCode::format('png')->size(200)->generate(url("/posts/{$post->id}"));
+
+        $filePath = public_path("/qrcodes/{$post->id}.png");
+        file_put_contents($filePath, $qrCode);
+
+        $post->qr_code_path = "/qrcodes/{$post->id}.png";
+        $post->save();
+
         return redirect('/posts');
+
     }
 
     public function edit($id)
     {
-        $post = DB::select('SELECT * FROM posts WHERE id = ?', [$id]);
-        return view('post.edit', ['post' => $post]);
+        $post = Post::find($id);
+        return view('posts.edit', ['post' => $post]);
+
     }
 
     public function update(Request $request, $id)

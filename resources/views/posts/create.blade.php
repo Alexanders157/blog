@@ -102,11 +102,12 @@
                     @endforeach
                 </select>
             </div>
-
+            <div class="container">
             <label for="title">Заголовок:</label><br>
             <label for="title"></label>
             <input id="title" name="title" required autofocus>
 
+            <br>
             <br>
 
             <label for="description">Описание:</label><br>
@@ -123,6 +124,7 @@
             <br>
             <input type="submit" value="Отправить">
         </form>
+    </div>
 
     </div>
     <br>
