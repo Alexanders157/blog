@@ -36,9 +36,9 @@ Route::get('/post/create', [PostController::class, 'create'])->name('create');
 
 Route::get('/posts', [PostsController::class, 'index']);
 
-Route::get('post/{id}', [PostController::class, 'show'])->name('post/get-post');
+Route::get('post/{post}', [PostController::class, 'show'])->name('show');
 
-Route::get('post/{id}/edit', [PostController::class, 'edit'])->name('edit');
+Route::get('post/{post}/edit', [PostController::class, 'edit'])->name('edit');
 
 Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
 

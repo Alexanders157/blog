@@ -71,7 +71,7 @@
         <article class="blog-post">
             <p> <b> {{ $post->title }} </b></p>
             <p>{{ $post->description }}</p>
-            <a href="{{ route('post/get-post', $post->id) }}">Читать далее</a>
+            <a href="{{ route('show', $post->id) }}">Читать далее</a>
         </article>
     @endforeach
 

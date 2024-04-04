@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Action\UpdatePostAction;
 use App\Http\Requests\StorePostRequest;
 use App\Libraries\Animal\Hippo;
 use App\Models\Post;
@@ -16,7 +17,9 @@ class PostController extends Controller
 {
     public function index()
     {
+        $user = auth()->user();
         $posts = Post::all();
+        dd($user);
 
         if (!$posts) {
             return redirect()->back();
@@ -111,12 +114,10 @@ class PostController extends Controller
 
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, UpdatePostAction $action)
     {
-        $title = $request->input('title');
-        $content = $request->input('content');
-        DB::update('UPDATE posts SET title = ?, content = ? WHERE id = ?', [$title, $content, $id]);
-        return redirect('/posts');
+        $action->setCollor('string');
+        return $action($request, $id);
     }
 
 }
