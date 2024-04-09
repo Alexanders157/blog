@@ -22,10 +22,13 @@ return new class extends Migration
             $table->string('description')->comment('Описание');
             $table->date('publication_date');
             $table->longText('content');
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->string('author', 50);
             $table->timestamps();
         });
+
+        $seeder = new  \Database\Seeders\PostSeeder();
+        $seeder->run();
     }
 
     /**
