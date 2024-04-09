@@ -35,11 +35,12 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                    static fn() => __('moonshine::ui.resource.role_title'),
                    new MoonShineUserRoleResource()
                ),
+                //Вот тут вы можете добавить эелемент меню !!!
 
             ]),
 
             MenuItem::make('Documentation', 'https://moonshine-laravel.com')
-               ->badge(fn() => 'Check'),
+               ->badge(static fn() => 'Check'),
         ];
     }
 
