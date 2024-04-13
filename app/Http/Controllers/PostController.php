@@ -19,7 +19,6 @@ class PostController extends Controller
     {
         $user = auth()->user();
         $posts = Post::all();
-        dd($user);
 
         if (!$posts) {
             return redirect()->back();
@@ -30,6 +29,7 @@ class PostController extends Controller
 
     public function show(Post $post): View|\Illuminate\Foundation\Application|Factory|Application
     {
+        dd($post->category);
         return view('posts.show', compact('post'));
     }
 

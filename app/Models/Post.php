@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 
 /**
@@ -16,6 +17,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $content
  * @property string $author
  * @property string $photo
+ *
+ * Relations
+ * @property Category $category
  */
 class Post extends Model
 {
@@ -39,4 +43,11 @@ class Post extends Model
         'created_at'
     ];
 
+    /**
+     * @return BelongsTo
+     */
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
 }

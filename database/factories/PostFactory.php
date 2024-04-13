@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Post;
 
@@ -14,14 +15,17 @@ class PostFactory extends Factory
 
     public function definition()
     {
+        $category = Category::query()->find(1);
+
         return [
-            'title' => $this->faker->sentence,
-            'description' =>$this->faker->text(200),
-            'category' => $this->faker->word,
+            'title' => $this->faker->title,
+            'description' =>$this->faker->sentence,
+            'category_id' => $category->id,
             'publication_date' => $this->faker->date(),
             'content' => $this->faker->paragraph,
             'author' => $this->faker->name,
-            'update_date' => $this->faker->date(),
+            'created_at' => now(),
+            'updated_at' => $this->faker->date(),
         ];
     }
 }
