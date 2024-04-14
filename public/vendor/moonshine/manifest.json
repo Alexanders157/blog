@@ -4,14 +4,11 @@
     "isEntry": true,
     "src": "resources/css/main.css"
   },
-<<<<<<< HEAD
-=======
   "resources/css/minimalistic.css": {
     "file": "assets/minimalistic.css",
     "isEntry": true,
     "src": "resources/css/minimalistic.css"
   },
->>>>>>> f1cd5036b3ada924c4c91f05a35655d6478cde1a
   "resources/fonts/Gilroy-Black.woff2": {
     "file": "fonts/Gilroy-Black.woff2",
     "src": "resources/fonts/Gilroy-Black.woff2"

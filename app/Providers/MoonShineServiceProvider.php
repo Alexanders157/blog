@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\Post;
+use App\MoonShine\Resources\PostResource;
 use MoonShine\Providers\MoonShineApplicationServiceProvider;
 use MoonShine\MoonShine;
 use MoonShine\Menu\MenuGroup;
@@ -15,38 +17,25 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
 {
     protected function resources(): array
     {
-        return [];
-    }
-
-    protected function pages(): array
-    {
-        return [];
+        return [
+        ];
     }
 
     protected function menu(): array
     {
         return [
-            MenuGroup::make(static fn() => __('moonshine::ui.resource.system'), [
-                MenuItem::make(
-                    static fn() => __('moonshine::ui.resource.admins_title'),
-                    new MoonShineUserResource()
-                ),
-                MenuItem::make(
-                    static fn() => __('moonshine::ui.resource.role_title'),
-                    new MoonShineUserRoleResource()
-                ),
-                //Вот тут вы можете добавить эелемент меню !!!
+            MenuGroup::make('moonshine::ui.resource.system', [
+                MenuItem::make('moonshine::ui.resource.admins_title', new MoonShineUserResource())
+                    ->translatable(),
+                MenuItem::make('moonshine::ui.resource.role_title', new MoonShineUserRoleResource())
+                    ->translatable(),
+            ])->translatable(),
 
-            ]),
-
-            MenuItem::make('Documentation', 'https://moonshine-laravel.com')
-                ->badge(static fn() => 'Check'),
+            MenuGroup::make('Посты', [
+                MenuItem::make('Посты', new PostResource())->icon('heroicons.list-bullet')->badge(fn() => Post::query()->count())])->icon('heroicons.list-bullet')
         ];
     }
 
-    /**
-     * @return array{css: string, colors: array, darkColors: array}
-     */
     protected function theme(): array
     {
         return [];

@@ -10,6 +10,9 @@ use App\MoonShine\Pages\Post\PostIndexPage;
 use App\MoonShine\Pages\Post\PostFormPage;
 use App\MoonShine\Pages\Post\PostDetailPage;
 
+use MoonShine\Decorations\Block;
+use MoonShine\Fields\ID;
+use MoonShine\Fields\Text;
 use MoonShine\Resources\ModelResource;
 
 /**
@@ -17,11 +20,12 @@ use MoonShine\Resources\ModelResource;
  */
 class PostResource extends ModelResource
 {
+
     protected string $model = Post::class;
 
-    protected string $title = 'Posts';
-
-    public function pages(): array
+    protected string $title = 'Посты';
+    public string $titleField = 'title';
+    protected function pages(): array
     {
         return [
             PostIndexPage::make($this->title()),
@@ -34,6 +38,20 @@ class PostResource extends ModelResource
         ];
     }
 
+    public function fields(): array
+    {
+        return [
+            ID::make()->sortable(),
+            Block::make('Основная информация', [
+                Text::make('Title')
+                    ->sortable()
+                    ->required()
+                    ->hint('Ввода заголовка'),
+                Text::make('Description')
+                    ->hint('Текст поста'),
+                ])
+        ];
+    }
     public function rules(Model $item): array
     {
         return [];
