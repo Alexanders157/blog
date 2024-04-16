@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use QrCode;
 
 
 /**
@@ -17,6 +18,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $content
  * @property string $author
  * @property string $photo
+ *
+ * Appends
+ * @property string $url
+ * @property  $qr_code
  *
  * Relations
  * @property Category $category
@@ -39,9 +44,29 @@ class Post extends Model
         'video_url',
     ];
 
+    protected $appends = [
+        'url',
+        'qr_code'
+    ];
+
     protected $hidden = [
         'created_at'
     ];
+
+    public function getUrlAttribute()
+    {
+        return url("/post/{$this->id}");
+    }
+
+    public function getQrCodeAttribute()
+    {
+        return QrCode::encoding('UTF-8')
+            ->color(40, 40, 40)
+            ->size(100)
+            ->format('svg')
+            ->generate($this->url);
+    }
+
 
     /**
      * @return BelongsTo

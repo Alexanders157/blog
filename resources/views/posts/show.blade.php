@@ -86,14 +86,16 @@
     <p class="upper-text a" align=left><a href="#"> Контакты </a></p>
 </header>
 <br>
-
 <main>
+    @include('welcome')
     <div class="container">
         <div id="main-col">
+
             <div><img src="{{ asset('storage/' . $post->photo) }}" alt="Изображение поста"></div>
 
             <h1>{{ $post->title }}</h1>
             <p>{{ $post->content }}</p>
+            <div>{!! $post->qr_code !!}</div>
             <div id="comments">
                 <br>
 
