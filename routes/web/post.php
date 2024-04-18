@@ -16,3 +16,5 @@ Route::prefix('posts')
         Route::get('{post}', [PostController::class, 'show'])->name('get');
         Route::get('posts/{post}/edit', [PostController::class, 'edit'])->name('edit');
 });
+
+

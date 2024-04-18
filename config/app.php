@@ -159,6 +159,7 @@ return [
         /*
          * Package Service Providers...
          */
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -169,7 +170,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\MoonShineServiceProvider::class,
-        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -185,6 +185,6 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
-    ])->toArray(),
-    'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+    ])->toArray()
 ];

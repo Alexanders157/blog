@@ -12,6 +12,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
+use QrCode;
 
 class PostController extends Controller
 {
@@ -29,7 +30,7 @@ class PostController extends Controller
 
     public function show(Post $post): View|\Illuminate\Foundation\Application|Factory|Application
     {
-
+        dd($post->category);
         return view('posts.show', compact('post'));
     }
 
