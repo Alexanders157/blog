@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\PostController;
 use App\Models\Post;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -41,5 +43,7 @@ Route::get('post/{post}', [PostController::class, 'show'])->name('show');
 Route::get('post/{post}/edit', [PostController::class, 'edit'])->name('edit');
 
 Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+
+Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 
 require __DIR__ . '/auth.php';
