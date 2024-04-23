@@ -7,11 +7,11 @@ namespace App\Providers;
 use App\Models\Post;
 use App\MoonShine\Resources\PostResource;
 use MoonShine\Providers\MoonShineApplicationServiceProvider;
-use MoonShine\MoonShine;
 use MoonShine\Menu\MenuGroup;
 use MoonShine\Menu\MenuItem;
 use MoonShine\Resources\MoonShineUserResource;
 use MoonShine\Resources\MoonShineUserRoleResource;
+use MoonShine\Metrics\DonutChartMetric;
 
 class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
 {
@@ -20,6 +20,7 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
         return [
         ];
     }
+
 
     protected function menu(): array
     {

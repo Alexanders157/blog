@@ -13,7 +13,7 @@ class PostFactory extends Factory
 {
     protected $model = Post::class;
 
-    public function definition()
+    public function definition(): array
     {
         $category = Category::query()->find(1);
 

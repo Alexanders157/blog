@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use QrCode;
+use App\Models\Comment;
 
 
 /**
@@ -30,6 +31,10 @@ class Post extends Model
 {
     use HasFactory;
 
+    /**
+     * @var mixed|string
+     */
+    public mixed $qr_code_path;
     protected $table = 'posts';
     protected $fillable = [
         'category_id',
@@ -53,7 +58,17 @@ class Post extends Model
         'created_at'
     ];
 
-    public function getUrlAttribute()
+    public static function find($id)
+    {
+
+    }
+
+    public static function findOrFail($id)
+    {
+
+    }
+
+    public function getUrlAttribute(): \Illuminate\Foundation\Application|string|\Illuminate\Contracts\Routing\UrlGenerator|\Illuminate\Contracts\Foundation\Application
     {
         return url("/post/{$this->id}");
     }
@@ -75,4 +90,10 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
+
+public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
+{
+    return $this->hasMany(Comment::class);
+}
+
 }

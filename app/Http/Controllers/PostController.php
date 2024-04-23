@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Action\UpdatePostAction;
 use App\Http\Requests\StorePostRequest;
 use App\Libraries\Animal\Hippo;
+use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -16,12 +17,12 @@ use QrCode;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(): View|\Illuminate\Foundation\Application|Factory|\Illuminate\Http\RedirectResponse|Application
     {
         $user = auth()->user();
         $posts = Post::all();
 
-        if (!$posts) {
+        if ($posts->isEmpty()) {
             return redirect()->back();
         }
 
@@ -30,7 +31,6 @@ class PostController extends Controller
 
     public function show(Post $post): View|\Illuminate\Foundation\Application|Factory|Application
     {
-        dd($post->category);
         return view('posts.show', compact('post'));
     }
 
@@ -56,7 +56,7 @@ class PostController extends Controller
   //      dd($post);
   //  }
 
-    public function store(StorePostRequest $request)
+    public function store(StorePostRequest $request): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|Application
     {
         //$data = $request->validated();
 //
@@ -98,24 +98,24 @@ class PostController extends Controller
 
         $qrCode = QrCode::format('png')->size(200)->generate(url("/posts/{$post->id}"));
 
-        $filePath = public_path("/qrcodes/{$post->id}.png");
+        $filePath = public_path("/codes/{$post->id}.png");
         file_put_contents($filePath, $qrCode);
 
-        $post->qr_code_path = "/qrcodes/{$post->id}.png";
+        $post->qr_code_path = "/codes/{$post->id}.png";
         $post->save();
 
         return redirect('/posts');
 
     }
 
-    public function edit($id)
+    public function edit($id): View|\Illuminate\Foundation\Application|Factory|Application
     {
         $post = Post::find($id);
         return view('posts.edit', ['post' => $post]);
 
     }
 
-    public function update(Request $request, $id, UpdatePostAction $action)
+    public function update(Request $request, $id, UpdatePostAction $action): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|Application
     {
         $action->setCollor('string');
         return $action($request, $id);

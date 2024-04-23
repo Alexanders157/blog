@@ -87,7 +87,7 @@
 </header>
 <br>
 <main>
-    @include('welcome')
+
     <div class="container">
         <div id="main-col">
 
@@ -99,19 +99,21 @@
             <div id="comments">
                 <br>
 
-                <form action="#" method="post" enctype="multipart/form-data">
-                    <h3 label for="message" >Комментарии:</h3><br>
-                        <textarea id="message" name="message" rows="10" cols="50" required></textarea><br>
-                        <label for="attachment">Выберите файл для вложения:</label><br>
-                        <input type="file" id="attachment" name="attachment" accept="image/*">
-                        <br>
-                        <br>
-                        <input type="submit" value="Отправить">
+                <form method="POST" action="/posts/{{ $post->id }}/comments">
+                    {{ csrf_field() }}
+                    <label>
+                        <textarea name="message" placeholder="Ваш комментарий" required></textarea>
+                    </label>
+                    <button type="submit">Добавить комментарий</button>
                 </form>
-                <br>
-                <br>
-                <p><strong>Имя комментатора</strong></p>
-                <p>Текст комментария...</p>
+
+
+                    <ul>
+                        @foreach($post->comments as $comment)
+                            <li>{{ $comment->message }}</li>
+                        @endforeach
+                    </ul>
+
             </div>
     </div>
     </div>
