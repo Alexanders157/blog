@@ -14,16 +14,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
 use QrCode;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class PostController extends Controller
 {
     public function index(): View|\Illuminate\Foundation\Application|Factory|\Illuminate\Http\RedirectResponse|Application
     {
         $user = auth()->user();
-        $posts = Post::all();
+        //$posts = Post::all();
+        $posts = Post::paginate(5);
+        return view('posts', ['posts' => $posts]);
 
         if ($posts->isEmpty()) {
-            return redirect()->back();
+        return redirect()->back();
         }
 
         return view('posts', compact('posts'));

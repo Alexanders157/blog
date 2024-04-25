@@ -50,6 +50,36 @@
         .upper-text a {
             color: #ccde99;
         }
+
+        .pagination {
+            text-align: center;
+            margin: 20px 0;
+            list-style: none;
+            padding: 0;
+        }
+
+        .pagination li {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .pagination li a {
+            color: #337ab7;
+            text-decoration: none;
+        }
+
+        .pagination li a:hover {
+            color: #23527c;
+        }
+
+        .pagination li.active a {
+            color: #fff;
+            background-color: #337ab7;
+            border-radius: 3px;
+            padding: 5px 10px;
+        }
+
+
     </style>
 
 
@@ -75,14 +105,10 @@
         </article>
     @endforeach
 
-    <div class="last-next-page-container">
-        <a href="#">Предыдущая страница</a>
-        <a href="#">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">Следующая страница</a>
-    </div>
+        <div class="pagination">
+            {{ $posts->links('pagination::default', ['class' => 'pagination pagination-sm', 'dotted' => false]) }}
+        </div>
+
     <br>
     <footer>
         <p>&copy; 2024 Мой Блог</p>

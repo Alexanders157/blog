@@ -68,6 +68,8 @@ class Post extends Model
 
     }
 
+
+
     public function getUrlAttribute(): \Illuminate\Foundation\Application|string|\Illuminate\Contracts\Routing\UrlGenerator|\Illuminate\Contracts\Foundation\Application
     {
         return url("/post/{$this->id}");

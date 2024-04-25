@@ -20,12 +20,22 @@ class PostFactory extends Factory
         return [
             'title' => $this->faker->title,
             'description' =>$this->faker->sentence,
-            'category_id' => $category->id,
+            'category' => $category->id,
             'publication_date' => $this->faker->date(),
             'content' => $this->faker->paragraph,
             'author' => $this->faker->name,
-            'created_at' => now(),
-            'updated_at' => $this->faker->date(),
+            'update_date' => $this->faker->date(),
         ];
+
+        //return [
+            //'title' => $this->faker->title,
+            //'description' =>$this->faker->sentence,
+           // 'category_id' => $category->id,
+           // 'publication_date' => $this->faker->date(),
+            //'content' => $this->faker->paragraph,
+            //'author' => $this->faker->name,
+            //'created_at' => now(),
+            //'updated_at' => $this->faker->date(),
+        //];
     }
 }
