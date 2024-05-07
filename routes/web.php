@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Models\Post;
 
 
@@ -34,16 +36,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/post/create', [PostController::class, 'create'])->name('create');
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->middleware('auth') ->name('logout');
 
-Route::get('/posts', [PostController::class, 'index']);
+Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 
-Route::get('post/{post}', [PostController::class, 'show'])->name('show');
+Route::post('/register', [RegisteredUserController::class, 'store']);
 
-Route::get('post/{post}/edit', [PostController::class, 'edit'])->name('edit');
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
 
-Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
-
-Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
-
-require __DIR__ . '/auth.php';
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
