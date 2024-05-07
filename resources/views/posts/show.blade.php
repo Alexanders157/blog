@@ -77,6 +77,7 @@
     <title>Блог</title>
 </head>
 <body>
+
 <header>
     <h1>Блог о домашних животных</h1>
     <p class="upper-text a" align=left><a href="/posts"> Главная </a></p>
@@ -90,6 +91,12 @@
 
     <div class="container">
         <div id="main-col">
+
+            <div>
+                <form method="get" action="/post/{{ $post->id }}/edit">
+                    <button type="submit">Редактировать</button>
+                </form>
+            </div>
 
             <div><img src="{{ asset('storage/' . $post->photo) }}" alt="Изображение поста"></div>
 

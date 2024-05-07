@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('posts')
+
+Route::middleware(['auth'])->prefix('posts')
     ->name('posts/')
     ->group(static function () {
 
@@ -14,7 +16,11 @@ Route::prefix('posts')
         Route::get('all', [PostController::class, 'index'])->name('all');
 
         Route::get('{post}', [PostController::class, 'show'])->name('get');
-        Route::get('posts/{post}/edit', [PostController::class, 'edit'])->name('edit');
+        Route::get('{post}/edit', [PostController::class, 'edit'])->name('edit');
+
+        Route::put('{post}', [PostController::class, 'update'])->name('update');
+
+        Route::post('{post}/comments', [CommentController::class, 'store'])->name('comment-store');
 });
 
 

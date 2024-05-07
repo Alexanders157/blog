@@ -79,6 +79,9 @@
             padding: 5px 10px;
         }
 
+        .reglog {
+            display: flex;
+        }
 
     </style>
 
@@ -86,14 +89,33 @@
     <title>Блог</title>
 </head>
 <body>
-<div>
-</div>
+
+
+
 <header>
+    <div>
+        @if (Route::has('login'))
+            <div>
+                @auth
+                    <p class="upper-text a" align=right><a href="{{ url('/dashboard') }}">Dashboard</a>
+                @else
+                    <p class="upper-text a" align=right><a href="{{ route('login') }}">Авторизация</a>
+
+                    @if (Route::has('register'))
+                        <p class="upper-text a" align=right><a href="{{ route('register') }}">Регистрация</a>
+                    @endif
+                @endauth
+            </div>
+        @endif
     <h1>Блог о домашних животных</h1>
-    <p class="upper-text a" align=left><a href="#"> Главная </a></p>
+    <p class="upper-text a" align=left><a href="/posts"> Главная </a></p>
     <p class="upper-text a" align=left><a href="#"> Категории </a></p>
-    <p class="upper-text a" align=left><a href="#"> Создать пост </a></p>
+    <p class="upper-text a" align=left><a href="/post/create"> Создать пост </a></p>
     <p class="upper-text a" align=left><a href="#"> Контакты </a></p>
+    <!--
+    <a href="{ { //route('/register') }}">Регистрация</a>
+    <a href="{ { //('/login') }}">Авторизация</a>
+    -->
 </header>
 
 <main>
@@ -101,7 +123,7 @@
         <article class="blog-post">
             <p> <b> {{ $post->title }} </b></p>
             <p>{{ $post->description }}</p>
-            <a href="{{ route('show', $post->id) }}">Читать далее</a>
+            <a href="{{ route('posts/get', $post->id) }}">Читать далее</a>
         </article>
     @endforeach
 

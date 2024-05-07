@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -48,5 +50,10 @@ public function comments()
 {
     return $this->hasMany(Comment::class);
 }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
 
 }

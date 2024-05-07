@@ -80,7 +80,7 @@
     <p class="upper-text a" align=left><a href="/posts"> Главная </a></p>
     <p class="upper-text a" align=left><a href="#"> Категории </a></p>
     <p class="upper-text a" align=left><a href="/posts"> Все посты </a></p>
-    <p class="upper-text a" align=left><a href="#"> Создать пост </a></p>
+    <p class="upper-text a" align=left><a href="/post/create"> Создать пост </a></p>
     <p class="upper-text a" align=left><a href="#"> Контакты </a></p>
 </header>
 <br>
@@ -102,7 +102,9 @@
                 <input type="file" id="attachment" name="attachment" value="{{ $post->video_url }}" accept="image/*"><br> <br>
 
                 <label for="video">Вставить ссылку на видео:</label><br>
-                <input type="text" name="video_url" value="{{ $post->video_url }}" />
+                <label>
+                    <input type="text" name="video_url" value="{{ $post->video_url }}" />
+                </label>
                 <input type="submit" value="Сохранить изменения">
             </form>
         </div>
