@@ -89,7 +89,7 @@
     <div class="container">
         <div id="main-col">
             <h1>Редактирование поста</h1>
-            <form action="{{ route('posts.update', $post->id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('update', $post->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <label for="title">Заголовок:</label><br>

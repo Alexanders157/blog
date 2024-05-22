@@ -74,6 +74,21 @@
     </style>
 
 
+    <script>
+        let timeoutId = null;
+
+        function updateComments() {
+        fetch('/comments')
+        .then(response => response.text())
+        .then(html => {
+        const commentList = document.getElementById('comment-list');
+        commentList.innerHTML = html;
+        });
+        }
+
+        timeoutId = setInterval(updateComments, 2000);
+
+    </script>
     <title>Блог</title>
 </head>
 <body>
@@ -111,17 +126,19 @@
                     <label>
                         <textarea name="message" placeholder="Ваш комментарий" required></textarea>
                     </label>
+                    @if(!Auth::user()->isAdmin())
                     <button type="submit">Добавить комментарий</button>
+                    @endif
                 </form>
 
-
+                <div id="comment-list">
                     <ul>
                         @foreach($post->comments as $comment)
                             <li>{{ $comment->message }}</li>
                         @endforeach
                     </ul>
-
             </div>
+    </div>
     </div>
     </div>
     <br>

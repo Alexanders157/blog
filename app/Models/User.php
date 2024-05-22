@@ -56,4 +56,9 @@ public function comments()
         $this->attributes['password'] = Hash::make($value);
     }
 
+public function isAdmin()
+{
+    return $this->role === 'admin';
+}
+
 }

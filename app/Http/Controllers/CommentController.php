@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -18,6 +20,10 @@ class CommentController extends Controller
         $request->validate([
             'message' => 'required|string',
         ]);
+
+        if (Auth::user()->isAdmin()) {
+            return redirect()->back()->withErrors(['Вы не можете оставлять комментарии как админ.']);
+        }
 
         $comment = new Comment ([
             'message' => $request->message,
@@ -34,6 +40,12 @@ class CommentController extends Controller
         $post = Post::findOrFail($id);
 
         return view('posts.show', compact('post' ));
+    }
+
+    public function getComments()
+    {
+        $comments = Comment::all(); // предположим, у вас есть модель Comment
+        return view('comments', compact('comments'));
     }
 
 }

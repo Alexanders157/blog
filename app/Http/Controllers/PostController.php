@@ -7,14 +7,13 @@ use App\Http\Requests\StorePostRequest;
 use App\Libraries\Animal\Hippo;
 use App\Models\Comment;
 use App\Models\Post;
-use App\Models\Task;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
-use QrCode;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class PostController extends Controller
@@ -26,7 +25,8 @@ class PostController extends Controller
         $posts = Post::paginate(5);
         return view('posts', ['posts' => $posts]);
 
-        if ($posts->isEmpty()) {
+        if ($posts->isEmpty())
+        {
         return redirect()->back();
         }
 
@@ -92,6 +92,10 @@ class PostController extends Controller
 
         //return ;
 
+        DB::transaction(function () use ($request)
+        {
+         $post = Post::create($request->all());
+
         $title = $request->input('title');
         $content = $request->input('content');
 
@@ -107,16 +111,16 @@ class PostController extends Controller
 
         $post->qr_code_path = "/codes/{$post->id}.png";
         $post->save();
+        });
 
         return redirect('/posts');
 
     }
 
-    public function edit($id): View|\Illuminate\Foundation\Application|Factory|Application
+    public function edit($id) : \Illuminate\View\View|\Illuminate\Foundation\Application|Factory|Application
     {
         $post = Post::find($id);
         return view('posts.edit', ['post' => $post]);
-
     }
 
     public function update(Request $request, $id, UpdatePostAction $action): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|Application

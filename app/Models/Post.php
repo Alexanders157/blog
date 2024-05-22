@@ -93,6 +93,15 @@ class Post extends Model
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function (Post $post) {
+            $post->category->increment('post_count');
+        });
+    }
+
 public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
 {
     return $this->hasMany(Comment::class);
