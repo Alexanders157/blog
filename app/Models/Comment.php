@@ -14,6 +14,7 @@ class Comment extends Model
         'post_id'
     ];
 
+    public $timestamps = true;
     public static function where(string $string, $id)
     {
 

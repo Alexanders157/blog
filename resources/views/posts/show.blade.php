@@ -93,12 +93,13 @@
 </head>
 <body>
 
+
 <header>
     <h1>Блог о домашних животных</h1>
-    <p class="upper-text a" align=left><a href="/posts"> Главная </a></p>
+    <p class="upper-text a" align=left><a href="all"> Главная </a></p>
     <p class="upper-text a" align=left><a href="#"> Категории </a></p>
-    <p class="upper-text a" align=left><a href="/posts"> Все посты </a></p>
-    <p class="upper-text a" align=left><a href="/post/create"> Создать пост </a></p>
+    <p class="upper-text a" align=left><a href="all"> Все посты </a></p>
+    <p class="upper-text a" align=left><a href="create"> Создать пост </a></p>
     <p class="upper-text a" align=left><a href="#"> Контакты </a></p>
 </header>
 <br>
@@ -108,7 +109,7 @@
         <div id="main-col">
 
             <div>
-                <form method="get" action="/post/{{ $post->id }}/edit">
+                <form method="get" action="/posts/{{ $post->id }}/edit">
                     <button type="submit">Редактировать</button>
                 </form>
             </div>
@@ -127,14 +128,16 @@
                         <textarea name="message" placeholder="Ваш комментарий" required></textarea>
                     </label>
                     @if(!Auth::user()->isAdmin())
-                    <button type="submit">Добавить комментарий</button>
+                        <button type="submit">Добавить комментарий</button>
                     @endif
                 </form>
 
                 <div id="comment-list">
                     <ul>
-                        @foreach($post->comments as $comment)
-                            <li>{{ $comment->message }}</li>
+                        @foreach($comments as $comment)
+                            <li>
+                                {{ $comment->message }} ({{ $comment->user ? $comment->user->name : 'Unknown' }})
+                            </li>
                         @endforeach
                     </ul>
             </div>

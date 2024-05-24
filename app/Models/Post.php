@@ -58,17 +58,6 @@ class Post extends Model
         'created_at'
     ];
 
-    public static function find($id)
-    {
-
-    }
-
-    public static function findOrFail($id)
-    {
-
-    }
-
-
 
     public function getUrlAttribute(): \Illuminate\Foundation\Application|string|\Illuminate\Contracts\Routing\UrlGenerator|\Illuminate\Contracts\Foundation\Application
     {

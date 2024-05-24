@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function __consturct(): void
+    public function __construct()
     {
         $this->middleware('auth');
     }
@@ -29,7 +29,11 @@ class CommentController extends Controller
             'message' => $request->message,
             'user_id' => auth()->id(),
             'post_id' => $postID,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
+
+        $comment->save();
 
         return redirect()->back()->with('success', 'Комментарий добавлен!');
 
@@ -42,9 +46,9 @@ class CommentController extends Controller
         return view('posts.show', compact('post' ));
     }
 
-    public function getComments()
+    public function getComments(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $comments = Comment::all(); // предположим, у вас есть модель Comment
+        $comments = $post->comments;
         return view('comments', compact('comments'));
     }
 

@@ -88,9 +88,7 @@
 
     <title>Блог</title>
 </head>
-<body>
-
-
+<body
 
 <header>
     <div>
@@ -122,8 +120,8 @@
     @foreach($posts as $post)
         <article class="blog-post">
             <p> <b> {{ $post->title }} </b></p>
-            <p>{{ $post->description }}</p>
-            <a href="{{ route('posts/get', $post->id) }}">Читать далее</a>
+            <p>{{ $post->content }}</p>
+            <a href="{{ route('posts.show', $post->id) }}">Читать далее</a>
         </article>
     @endforeach
 

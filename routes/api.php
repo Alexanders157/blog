@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ApiPostController;
+use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,5 @@ Route::middleware('auth:sanctum')
 });
 
 Route::get('/get-post', [ApiPostController::class, 'get'])->name('api-post');
+Route::post('/posts', [PostController::class, 'store']);
+Route::put('/posts/{id}', [PostController::class, 'update']);

@@ -73,7 +73,9 @@
 
     </style>
 
-
+    <script>
+        src =
+    </script>
     <title>Блог</title>
 </head>
 <body>
@@ -81,9 +83,9 @@
 </div>
 <header>
     <h1>Блог о домашних животных</h1>
-    <p class="upper-text a" align=left><a href="#"> Главная </a></p>
+    <p class="upper-text a" align=left><a href="all"> Главная </a></p>
     <p class="upper-text a" align=left><a href="#"> Категории </a></p>
-    <p class="upper-text a" align=left><a href="#"> Все посты </a></p>
+    <p class="upper-text a" align=left><a href="all"> Все посты </a></p>
     <p class="upper-text a" align=left><a href="#"> Контакты </a></p>
 </header>
 <br>
@@ -110,8 +112,8 @@
             <br>
             <br>
 
-            <label for="description">Описание:</label><br>
-            <textarea id="description" name="description" rows="10" cols="50" required></textarea>
+            <label for="content">Описание:</label><br>
+            <textarea id="content" name="content" rows="10" cols="50" required></textarea>
 
             <br>
 

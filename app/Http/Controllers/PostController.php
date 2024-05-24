@@ -36,7 +36,8 @@ class PostController extends Controller
 
     public function show(Post $post): View|\Illuminate\Foundation\Application|Factory|Application
     {
-        return view('posts.show', compact('post'));
+        $comments = $post->comments()->with('user')->get();
+        return view('posts.show', compact('post', 'comments'));
     }
 
     /**
@@ -102,7 +103,7 @@ class PostController extends Controller
 
         $post = new Post();
         $post->title = $request->title;
-        $post->body = $request->description;
+        $post->content = $request->content;
         $post->save();
 
         $qrCode = QrCode::format('png')->size(200)->generate(url("/posts/{$post->id}"));
@@ -124,10 +125,16 @@ class PostController extends Controller
         return view('posts.edit', ['post' => $post]);
     }
 
-    public function update(Request $request, $id, UpdatePostAction $action): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|Application
+    public function update(Request $request, Post $post): \Illuminate\Http\RedirectResponse
     {
-        $action->setCollor('string');
-        return $action($request, $id);
-    }
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
 
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+        $post->save();
+        return redirect()->route('posts.show', $post);
+    }
 }
