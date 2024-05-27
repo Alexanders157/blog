@@ -83,12 +83,14 @@
             display: flex;
         }
 
+
+
     </style>
 
 
     <title>Блог</title>
 </head>
-<body
+<body>
 
 <header>
     <div>

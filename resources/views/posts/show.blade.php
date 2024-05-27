@@ -73,23 +73,9 @@
 
     </style>
 
-
-    <script>
-        let timeoutId = null;
-
-        function updateComments() {
-        fetch('/comments')
-        .then(response => response.text())
-        .then(html => {
-        const commentList = document.getElementById('comment-list');
-        commentList.innerHTML = html;
-        });
-        }
-
-        timeoutId = setInterval(updateComments, 2000);
-
-    </script>
     <title>Блог</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 
@@ -122,6 +108,8 @@
             <div id="comments">
                 <br>
 
+                <h2> Комментарии:</h2>
+
                 <form method="POST" action="/posts/{{ $post->id }}/comments">
                     {{ csrf_field() }}
                     <label>
@@ -140,6 +128,7 @@
                             </li>
                         @endforeach
                     </ul>
+
             </div>
     </div>
     </div>
@@ -150,5 +139,24 @@
 <footer>
     <p>&copy; 2024 Мой Блог</p>
 </footer>
+
+<script>
+    $(document).ready(function() {
+        function fetchComments() {
+            $.ajax({
+                url: "/posts/{{ $post->id }}/comments/update",
+                method: "GET",
+                success: function(data) {
+                    $('#comment-list').html(data);
+                },
+                error: function() {
+                    console.error("Не удалось получить комментарии.");
+                }
+            });
+        }
+
+        setInterval(fetchComments, 2000);
+    });
+</script>
 </body>
 </html>

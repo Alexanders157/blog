@@ -23,4 +23,4 @@ Route::middleware('auth:sanctum')
 
 Route::get('/get-post', [ApiPostController::class, 'get'])->name('api-post');
 Route::post('/posts', [PostController::class, 'store']);
-Route::put('/posts/{id}', [PostController::class, 'update']);
+Route::put('/posts/{post}', [PostController::class, 'update']);

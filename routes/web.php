@@ -4,12 +4,11 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
-use App\Http\Controllers\PostsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Models\Post;
-use TokenGenerator\RandomTokenGenerator;
+//use TokenGenerator\RandomTokenGenerator;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +21,13 @@ use TokenGenerator\RandomTokenGenerator;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     $mytoken=RandomTokenGenerator::generatetoken();
     return view('welcome', compact('mytoken'));
+});*/
+
+Route::get('/', function () {
+    return view('welcome');
 });
 
 Route::get('/dashboard', static function () {
@@ -52,4 +55,4 @@ Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('l
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
-Route::get('/comments', [Commentcontroller::class, 'getComments']);
+Route::get('/posts/{post}/comments/update', [CommentController::class, 'getComments']);

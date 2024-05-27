@@ -19,19 +19,16 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class PostController extends Controller
 {
-    public function index(): View|\Illuminate\Foundation\Application|Factory|\Illuminate\Http\RedirectResponse|Application
+    public function index(): View|\Illuminate\Http\RedirectResponse
     {
         $user = auth()->user();
-        //$posts = Post::all();
         $posts = Post::paginate(5);
-        return view('posts', ['posts' => $posts]);
 
-        if ($posts->isEmpty())
-        {
-        return redirect()->back();
+        if ($posts->isEmpty()) {
+            return redirect()->back();
         }
 
-        return view('posts', compact('posts'));
+        return view('posts', ['posts' => $posts]);
     }
 
     public function show(Post $post): View|\Illuminate\Foundation\Application|Factory|Application
@@ -94,25 +91,18 @@ class PostController extends Controller
 
         //return ;
 
-        DB::transaction(function () use ($request)
-        {
-         $post = Post::create($request->all());
+        DB::transaction(function () use ($request) {
+            $post = new Post();
+            $post->title = $request->input('title');
+            $post->content = $request->input('content');
+            $post->save();
 
-        $title = $request->input('title');
-        $content = $request->input('content');
+            $qrCode = QrCode::format('png')->size(200)->generate(url("/posts/{$post->id}"));
+            $filePath = public_path("/codes/{$post->id}.png");
+            file_put_contents($filePath, $qrCode);
 
-        $post = new Post();
-        $post->title = $request->title;
-        $post->content = $request->content;
-        $post->save();
-
-        $qrCode = QrCode::format('png')->size(200)->generate(url("/posts/{$post->id}"));
-
-        $filePath = public_path("/codes/{$post->id}.png");
-        file_put_contents($filePath, $qrCode);
-
-        $post->qr_code_path = "/codes/{$post->id}.png";
-        $post->save();
+            $post->qr_code_path = "/codes/{$post->id}.png";
+            $post->save();
         });
 
         return redirect('/posts');
@@ -136,5 +126,30 @@ class PostController extends Controller
         $post->content = $request->input('content');
         $post->save();
         return redirect()->route('posts.show', $post);
+    }
+
+    public function apiStore(Request $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        $post = Post::create($validatedData);
+
+        return response()->json($post, 201);
+    }
+
+    public function apiUpdate(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'title' => 'sometimes|required|string|max:255',
+            'content' => 'sometimes|required|string',
+        ]);
+
+        $post = Post::findOrFail($id);
+        $post->update($validatedData);
+
+        return response()->json($post, 200);
     }
 }

@@ -37,7 +37,7 @@ class CommentController extends Controller
 
         return redirect()->back()->with('success', 'Комментарий добавлен!');
 
-        }
+    }
 
     public function show($id): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
@@ -45,11 +45,11 @@ class CommentController extends Controller
 
         return view('posts.show', compact('post' ));
     }
-
-    public function getComments(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function getComments($postID)
     {
-        $comments = $post->comments;
-        return view('comments', compact('comments'));
+        $comments = Comment::where('post_id', $postID)->orderBy('created_at', 'desc')->get();
+        return response()->json($comments);
     }
+
 
 }
