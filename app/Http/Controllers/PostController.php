@@ -7,7 +7,6 @@ use App\Http\Requests\StorePostRequest;
 use App\Libraries\Animal\Hippo;
 use App\Models\Comment;
 use App\Models\Post;
-use App\Models\Task;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -17,13 +16,14 @@ use App\Models\Category;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Pagination\LengthAwarePaginator;
 
+
 class PostController extends Controller
 {
     public function index(): View|\Illuminate\Http\RedirectResponse
     {
         $user = auth()->user();
         $posts = Post::paginate(5);
-
+        dd($user->personal_token);
         if ($posts->isEmpty()) {
             return redirect()->back();
         }

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
+use TokenGenerator\RandomTokenGenerator;
 
 class User extends Authenticatable
 {
@@ -35,6 +36,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $appends = [
+        'personal_token',
+    ];
+
     /**
      * The attributes that should be cast.
      *
@@ -46,19 +51,24 @@ class User extends Authenticatable
     ];
 
 
-public function comments()
-{
-    return $this->hasMany(Comment::class);
-}
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make($value);
     }
 
-public function isAdmin()
-{
-    return $this->role === 'admin';
-}
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function getPersonalTokenAttribute(): string|null
+    {
+        return RandomTokenGenerator::generatetoken();
+    }
 
 }

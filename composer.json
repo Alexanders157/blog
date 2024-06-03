@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.3.0",
-        "alexander157/alexander157-token-generator": "^1.0.0",
+        "alexander157/token-generator": "^1.0",
         "doctrine/dbal": "^3.8.4",
         "guzzlehttp/guzzle": "^7.8.1",
         "illuminate/database": "*",
@@ -31,8 +31,7 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/",
-            "TokenGenerator\\": "vendor/alexander157/alexander157-token-generator/src"
+            "Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {
