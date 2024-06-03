@@ -43,7 +43,7 @@ class CommentController extends Controller
     {
         $post = Post::findOrFail($id);
 
-        return view('posts.show', compact('post' ));
+        return view('posts.show', compact('post'));
     }
     public function getComments($postID)
     {

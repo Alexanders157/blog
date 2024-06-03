@@ -108,10 +108,7 @@
             </div>
         @endif
     <h1>Блог о домашних животных</h1>
-    <p class="upper-text a" align=left><a href="/posts"> Главная </a></p>
-    <p class="upper-text a" align=left><a href="#"> Категории </a></p>
-    <p class="upper-text a" align=left><a href="/post/create"> Создать пост </a></p>
-    <p class="upper-text a" align=left><a href="#"> Контакты </a></p>
+    <p class="upper-text a" align=left><a href="/posts/create"> Создать пост </a></p>
     <!--
     <a href="{ { //route('/register') }}">Регистрация</a>
     <a href="{ { //('/login') }}">Авторизация</a>

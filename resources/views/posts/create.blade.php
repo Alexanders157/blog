@@ -84,9 +84,6 @@
 <header>
     <h1>Блог о домашних животных</h1>
     <p class="upper-text a" align=left><a href="all"> Главная </a></p>
-    <p class="upper-text a" align=left><a href="#"> Категории </a></p>
-    <p class="upper-text a" align=left><a href="all"> Все посты </a></p>
-    <p class="upper-text a" align=left><a href="#"> Контакты </a></p>
 </header>
 <br>
 <br>
@@ -94,7 +91,7 @@
     <div class="container">
         <h2>Создать пост</h2>
 
-        <form action="{{ route('posts/store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ url('posts/store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div>
                 <label for="choice">Выбрать категорию:</label>

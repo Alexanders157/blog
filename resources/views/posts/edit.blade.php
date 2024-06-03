@@ -78,10 +78,7 @@
 <header>
     <h1>Блог о домашних животных</h1>
     <p class="upper-text a" align=left><a href="/posts"> Главная </a></p>
-    <p class="upper-text a" align=left><a href="#"> Категории </a></p>
-    <p class="upper-text a" align=left><a href="/posts"> Все посты </a></p>
-    <p class="upper-text a" align=left><a href="/post/create"> Создать пост </a></p>
-    <p class="upper-text a" align=left><a href="#"> Контакты </a></p>
+    <p class="upper-text a" align=left><a href="/posts/create"> Создать пост </a></p>
 </header>
 <br>
 

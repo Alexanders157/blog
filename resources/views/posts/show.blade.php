@@ -71,6 +71,22 @@
             color: white;
         }
 
+        .comment-card {
+            background-color: #f7f7f7;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+
+        .comment-card h5 {
+            font-weight: bold;
+            margin-top: 0;
+        }
+
+        .comment-card p {
+            margin-bottom: 10px;
+        }
+
     </style>
 
     <title>Блог</title>
@@ -83,10 +99,7 @@
 <header>
     <h1>Блог о домашних животных</h1>
     <p class="upper-text a" align=left><a href="all"> Главная </a></p>
-    <p class="upper-text a" align=left><a href="#"> Категории </a></p>
-    <p class="upper-text a" align=left><a href="all"> Все посты </a></p>
     <p class="upper-text a" align=left><a href="create"> Создать пост </a></p>
-    <p class="upper-text a" align=left><a href="#"> Контакты </a></p>
 </header>
 <br>
 <main>
@@ -99,39 +112,38 @@
                     <button type="submit">Редактировать</button>
                 </form>
             </div>
-
+            <br>
             <div><img src="{{ asset('storage/' . $post->photo) }}" alt="Изображение поста"></div>
 
             <h1>{{ $post->title }}</h1>
             <p>{{ $post->content }}</p>
             <div>{!! $post->qr_code !!}</div>
             <div id="comments">
-                <br>
-
-                <h2> Комментарии:</h2>
+                <h2>Комментарии:</h2>
 
                 <form method="POST" action="/posts/{{ $post->id }}/comments">
                     {{ csrf_field() }}
-                    <label>
-                        <textarea name="message" placeholder="Ваш комментарий" required></textarea>
-                    </label>
+                    <div class="form-group">
+                        <label for="message">Ваш комментарий:</label>
+                        <textarea name="message" id="message" placeholder="Ваш комментарий" required></textarea>
+                    </div>
                     @if(!Auth::user()->isAdmin())
-                        <button type="submit">Добавить комментарий</button>
+                        <button type="submit" class="btn btn-primary">Добавить комментарий</button>
                     @endif
                 </form>
-
+                <br>
                 <div id="comment-list">
-                    <ul>
-                        @foreach($comments as $comment)
-                            <li>
-                                {{ $comment->message }} ({{ $comment->user ? $comment->user->name : 'Unknown' }})
-                            </li>
-                        @endforeach
-                    </ul>
+                    @foreach($comments as $comment)
+                        <div class="comment-card">
+                            <h5>{{ $comment->user ? $comment->user->name : 'Unknown' }}</h5>
+                            <p>{{ $comment->message }}</p>
+                            <!-- Add some interactivity here, such as reply, like, or edit buttons -->
+                        </div>
+                    @endforeach
+                </div>
+            </div>
 
             </div>
-    </div>
-    </div>
     </div>
     <br>
     <br>
