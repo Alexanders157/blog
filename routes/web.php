@@ -1,14 +1,7 @@
 <?php
 
-use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Models\Post;
-//use TokenGenerator\RandomTokenGenerator;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,17 +14,12 @@ use App\Models\Post;
 |
 */
 
-/*Route::get('/', function () {
-    $mytoken=RandomTokenGenerator::generatetoken();
-    return view('welcome', compact('mytoken'));
-});*/
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', static function () {
-    return view('dashboard', ['user' => User::find(1)]);
+Route::get('/dashboard', function () {
+    return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -40,19 +28,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::group(['middleware' => 'admin'], function () {
-    Route::resource('all', 'PostController');
-});
-
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
-    ->middleware('auth') ->name('logout');
-
-Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
-
-Route::post('/register', [RegisteredUserController::class, 'store']);
-
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
-
-Route::get('/posts/{post}/comments/update', [CommentController::class, 'getComments']);
+require __DIR__.'/auth.php';

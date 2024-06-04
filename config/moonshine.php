@@ -75,17 +75,25 @@ return [
             'name' => 'name',
             'avatar' => 'avatar',
         ],
-        'guard' => 'moonshine',
-        'guards' => [
+        'guard' => 'web',
+        'guards' => ['web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
             'moonshine' => [
                 'driver' => 'session',
                 'provider' => 'moonshine',
             ],
         ],
         'providers' => [
+            'users' => [
+                'driver' => 'eloquent',
+                'model' => App\Models\User::class, // <- Изменили
+            ],
+
             'moonshine' => [
                 'driver' => 'eloquent',
-                'model' => MoonshineUser::class,
+                'model' => App\Models\User::class,
             ],
         ],
         'pipelines' => [],
