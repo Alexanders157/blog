@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostFilterController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -22,6 +23,10 @@ Route::middleware(['auth'])->prefix('posts')
         Route::delete('{post}', [PostController::class, 'destroy'])->name('destroy');
 
         Route::post('{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+
+        Route::get('/posts/filter', [PostFilterController::class, 'filter'])->name('posts.filter');
+
+
     });
 
 

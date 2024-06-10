@@ -58,7 +58,6 @@ class Post extends Model
         'created_at'
     ];
 
-
     public function getUrlAttribute(): \Illuminate\Foundation\Application|string|\Illuminate\Contracts\Routing\UrlGenerator|\Illuminate\Contracts\Foundation\Application
     {
         return url("/post/{$this->id}");

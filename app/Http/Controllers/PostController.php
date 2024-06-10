@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Category;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Redis;
 
 
 class PostController extends Controller
@@ -36,6 +37,17 @@ class PostController extends Controller
     {
         $comments = $post->comments()->with('user')->get();
         return view('posts.show', compact('post', 'comments'));
+
+        $userId = auth()->id();
+
+        $viewedPosts = Redis::get("user:{$userId}:viewed_posts");
+        $viewedPosts = json_decode($viewedPosts, true) ?? [];
+
+        array_unshift($viewedPosts, $post->id);
+        $viewedPosts = array_unique($viewedPosts);
+        $viewedPosts = array_slice($viewedPosts, 0, 5);
+
+        Redis::set("user:{$userId}:viewed_posts", json_encode($viewedPosts));
     }
 
     /**
@@ -47,18 +59,18 @@ class PostController extends Controller
         return view('posts.create', compact('categories'));
     }
 
-   // public function show(Post $post)
-   // {
-        //$connection = mysqli_connect("172.17.0.1", "root", "12345", "laravel");
-        //$query = "INSERT INTO posts (title, description) VALUES ('{$data['title']}', '{$data['message']}')";
+    // public function show(Post $post)
+    // {
+    //$connection = mysqli_connect("172.17.0.1", "root", "12345", "laravel");
+    //$query = "INSERT INTO posts (title, description) VALUES ('{$data['title']}', '{$data['message']}')";
 //
-        //$result = mysqli_query($connection, $query);
+    //$result = mysqli_query($connection, $query);
 //
-        //if ($result) {
-        //    return redirect()->back();
-        //}
-  //      dd($post);
-  //  }
+    //if ($result) {
+    //    return redirect()->back();
+    //}
+    //      dd($post);
+    //  }
 
     public function store(StorePostRequest $request): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|Application
     {

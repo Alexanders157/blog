@@ -114,9 +114,14 @@
     <a href="{ { //('/login') }}">Авторизация</a>
     -->
 </header>
-
+<br>
 <main>
-    @foreach($posts as $post)
+    <form action="{{ route('posts.filter') }}" method="GET">
+        <input type="date" name="date">
+        <button type="submit">Фильтровать</button>
+    </form>
+
+@foreach($posts as $post)
         <article class="blog-post">
             <p> <b> {{ $post->title }} </b></p>
             <p>{{ $post->content }}</p>
@@ -124,10 +129,9 @@
         </article>
     @endforeach
 
-        <div class="pagination">
-            {{ $posts->links('pagination::default', ['class' => 'pagination pagination-sm', 'dotted' => false]) }}
-        </div>
-
+    <div class="pagination">
+        {{ $posts->links('pagination::default', ['class' => 'pagination pagination-sm', 'dotted' => false]) }}
+    </div>
     <br>
     <footer>
         <p>&copy; 2024 Мой Блог</p>
