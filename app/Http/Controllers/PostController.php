@@ -25,6 +25,7 @@ class PostController extends Controller
     {
         $user = auth()->user();
         $posts = Post::paginate(5);
+
         //dd($user->personal_token);
         if ($posts->isEmpty()) {
             return redirect()->back();
