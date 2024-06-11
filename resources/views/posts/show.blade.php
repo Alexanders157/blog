@@ -156,7 +156,7 @@
     $(document).ready(function() {
         function fetchComments() {
             $.ajax({
-                url: "/posts/{{ $post->id }}/comments/update",
+                url: "http://127.0.0.1:8000/posts/{{ $post->id }}/comments/update",
                 method: "GET",
                 success: function(data) {
                     $('#comment-list').html(data);

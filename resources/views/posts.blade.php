@@ -1,141 +1,52 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="index, follow">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
 
-        header {
-            background-color: #5675e3;
-            color: #fff;
-            text-align: center;
-            padding: 1rem;
-        }
+<x-app-layout>
 
-        .blog-post {
-            border: 1px solid #ddd;
-            padding: 1rem;
-            margin: 1rem;
-            background-color: #f9f9f9;
-        }
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Posts') }}
+        </h2>
+    </x-slot>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                        <form action="{{ route('posts.filter') }}" class="mt-6 space-y-6" method="GET">
+                            @csrf
+                            <div class="data-time-piker">
+                                <input type="date" name="date">
+                                <button type="submit">Фильтровать</button>
+                            </div>
+                        </form>
+                    </div>
 
-        .blog-post a {
-            color: #007bff;
-            text-decoration: none;
-        }
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                        @foreach($posts as $post)
+                            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                                <article class="blog-post">
+                                    <p class="text-lg font-medium text-gray-900">
+                                        <b> {{ $post->title }} </b>
+                                    </p>
 
-        footer {
-            text-align: center;
-            padding: 1rem;
-            background-color: #5675e3;
-            color: #fff;
-        }
+                                    <p class="mt-1 text-sm text-gray-600">{{ $post->content }}</p>
 
-        .last-next-page-container {
-            display:flex;
-            justify-content: center;
+                                    <a class="mt-5" href="{{ route('posts.show', $post->id) }}">
+                                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                            Читать далее
+                                        </button>
+                                    </a>
+                                </article>
+                            </div>
+                        @endforeach
+                    </div>
 
-        }
-
-        .last-next-page-container a {
-            margin: 0 4px;
-        }
-
-        .upper-text a {
-            color: #ccde99;
-        }
-
-        .pagination {
-            text-align: center;
-            margin: 20px 0;
-            list-style: none;
-            padding: 0;
-        }
-
-        .pagination li {
-            display: inline-block;
-            margin: 0 10px;
-        }
-
-        .pagination li a {
-            color: #337ab7;
-            text-decoration: none;
-        }
-
-        .pagination li a:hover {
-            color: #23527c;
-        }
-
-        .pagination li.active a {
-            color: #fff;
-            background-color: #337ab7;
-            border-radius: 3px;
-            padding: 5px 10px;
-        }
-
-        .reglog {
-            display: flex;
-        }
-
-
-
-    </style>
-
-
-    <title>Блог</title>
-</head>
-<body>
-
-<header>
-    <div>
-        @if (Route::has('login'))
-            <div>
-                @auth
-                    <p class="upper-text a" align=right><a href="{{ url('/dashboard') }}">Dashboard</a>
-                @else
-                    <p class="upper-text a" align=right><a href="{{ route('login') }}">Авторизация</a>
-
-                    @if (Route::has('register'))
-                        <p class="upper-text a" align=right><a href="{{ route('register') }}">Регистрация</a>
-                    @endif
-                @endauth
+                <div class="pagination">
+                    {{ $posts->links('pagination::default', ['class' => 'pagination pagination-sm', 'dotted' => false]) }}
+                </div>
+                </div>
             </div>
-        @endif
-    <h1>Блог о домашних животных</h1>
-    <p class="upper-text a" align=left><a href="/posts/create"> Создать пост </a></p>
-    <!--
-    <a href="{ { //route('/register') }}">Регистрация</a>
-    <a href="{ { //('/login') }}">Авторизация</a>
-    -->
-</header>
-<br>
-<main>
-    <form action="{{ route('posts.filter') }}" method="GET">
-        <input type="date" name="date">
-        <button type="submit">Фильтровать</button>
-    </form>
-
-@foreach($posts as $post)
-        <article class="blog-post">
-            <p> <b> {{ $post->title }} </b></p>
-            <p>{{ $post->content }}</p>
-            <a href="{{ route('posts.show', $post->id) }}">Читать далее</a>
-        </article>
-    @endforeach
-
-    <div class="pagination">
-        {{ $posts->links('pagination::default', ['class' => 'pagination pagination-sm', 'dotted' => false]) }}
+        </div>
     </div>
-    <br>
-    <footer>
-        <p>&copy; 2024 Мой Блог</p>
-    </footer>
-</main>
-</body>
-</html>
+</x-app-layout>
