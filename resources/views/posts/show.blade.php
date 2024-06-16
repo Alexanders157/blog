@@ -19,6 +19,14 @@
                             </div>
                         </div>
 
+                        <div>
+                            <form method="get" action="/posts/{{ $post->id }}/edit" class="mt-6">
+                                <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                    Редактировать
+                                </button>
+                            </form>
+                        </div>
+
                         <!-- Комментарии -->
                         <div class="bg-white shadow sm:rounded-lg p-4 sm:p-8">
                             <h2 class="text-xl font-semibold text-gray-800">Комментарии:</h2>
@@ -44,36 +52,48 @@
                             </div>
                         </div>
 
-                        <div>
-                            <form method="get" action="/posts/{{ $post->id }}/edit" class="mt-6">
-                                <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                    Редактировать
-                                </button>
-                            </form>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <script>
+        const commentForm = document.querySelector('form[action="/posts/{{ $post->id }}/comments"]');
+        const commentList = document.getElementById('comment-list');
+
+        commentForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Предотвращаем стандартную отправку формы
+
+            fetch(this.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(new FormData(this)).toString()
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Создаем новый элемент для комментария
+                        const newComment = `
+                       <div class="comment-card p-4 bg-gray-100 rounded-lg">
+                           <h5 class="font-bold">${data.comment.user.name}</h5>
+                           <p>${data.comment.message}</p>
+                       </div>
+                   `;
+                        commentList.innerHTML = newComment + commentList.innerHTML; // Добавляем новый комментарий в начало списка
+                        commentForm.reset();
+                    } else if (data.error) {
+                        alert(data.error);
+                    }
+                })
+                .catch(error => console.error('Ошибка:', error));
+        });
+    </script>
+
 </x-app-layout>
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script>
-    $(document).ready(function() {
-        function fetchComments() {
-            $.ajax({
-                url: "{{ url('/posts/' . $post->id . '/comments/update') }}",
-                method: "GET",
-                success: function(data) {
-                    $('#comment-list').html(data);
-                },
-                error: function() {
-                    console.error("Не удалось получить комментарии.");
-                }
-            });
-        }
 
-        setInterval(fetchComments, 2000);
-    });
-</script>

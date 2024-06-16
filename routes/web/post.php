@@ -21,6 +21,7 @@ Route::middleware(['auth'])
         Route::delete('{post}', [PostController::class, 'destroy'])->name('destroy');
 
         Route::post('{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+        Route::get('{post}/comments/update', [CommentController::class, 'updateComments'])->name('posts.comments.update');
 
         Route::get('filter', [PostFilterController::class, 'filter'])->name('filter');
 
