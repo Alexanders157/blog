@@ -1,162 +1,69 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="index, follow">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: #5675e3;
-            color: #fff;
-            text-align: center;
-            padding: 1rem;
-        }
-
-        footer {
-            text-align: center;
-            padding: 1rem;
-            background-color: #5675e3;
-            color: #fff;
-        }
-
-
-        .upper-text a {
-            color: #ccde99;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 100px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        input[type="file"] {
-            margin-top: 10px;
-        }
-
-        input[type="submit"] {
-            background-color: #5675e3;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #5675e3;
-        }
-
-        button[type="submit"]{
-            background: #5675e3;
-            color: white;
-        }
-
-        .comment-card {
-            background-color: #f7f7f7;
-            padding: 10px;
-            border: 1px solid #ddd;
-            margin-bottom: 10px;
-        }
-
-        .comment-card h5 {
-            font-weight: bold;
-            margin-top: 0;
-        }
-
-        .comment-card p {
-            margin-bottom: 10px;
-        }
-
-    </style>
-
-    <title>Блог</title>
-
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-</head>
-<body>
-
-
-<header>
-    <h1>Блог о домашних животных</h1>
-    <p class="upper-text a" align=left><a href="all"> Главная </a></p>
-    <p class="upper-text a" align=left><a href="create"> Создать пост </a></p>
-</header>
-<br>
-<main>
-
-    <div class="container">
-        <div id="main-col">
-
-            <div>
-                <form method="get" action="/posts/{{ $post->id }}/edit">
-                    <button type="submit">Редактировать</button>
-                </form>
-            </div>
-            <br>
-            <div><img src="{{ asset('storage/' . $post->photo) }}" alt="Изображение поста"></div>
-
-            <h1>{{ $post->title }}</h1>
-            <p>{{ $post->content }}</p>
-            <div>{!! $post->qr_code !!}</div>
-            <div id="comments">
-                <h2>Комментарии:</h2>
-
-                <form method="POST" action="/posts/{{ $post->id }}/comments">
-                    {{ csrf_field() }}
-                    <div class="form-group">
-                        <label for="message">Ваш комментарий:</label>
-                        <textarea name="message" id="message" placeholder="Ваш комментарий" required></textarea>
-                    </div>
-                    @if(!Auth::user()->isAdmin())
-                        <button type="submit" class="btn btn-primary">Добавить комментарий</button>
-                    @endif
-                </form>
-                <br>
-                <div id="comment-list">
-                    @foreach($comments as $comment)
-                        <div class="comment-card">
-                            <h5>{{ $comment->user ? $comment->user->name : 'Unknown' }}</h5>
-                            <p>{{ $comment->message }}</p>
-                            <!-- Add some interactivity here, such as reply, like, or edit buttons -->
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ $post->title }}
+        </h2>
+    </x-slot>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                        <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                            <div>
+                                <img src="{{ asset('storage/' . $post->photo) }}" alt="Изображение поста" class="w-full h-auto mb-4 rounded-lg">
+                                <article class="blog-post">
+                                    <p class="mt-1 text-lg text-gray-600">{{ $post->content }}</p>
+                                    <div class="mt-5">{!! $post->qr_code !!}</div>
+                                </article>
+                            </div>
                         </div>
-                    @endforeach
+
+                        <!-- Комментарии -->
+                        <div class="bg-white shadow sm:rounded-lg p-4 sm:p-8">
+                            <h2 class="text-xl font-semibold text-gray-800">Комментарии:</h2>
+                            <form method="POST" action="/posts/{{ $post->id }}/comments" class="mt-6 space-y-6">
+                                @csrf
+                                <div>
+                                    <label for="message" class="block text-sm font-medium text-gray-700">Ваш комментарий:</label>
+                                    <textarea name="message" id="message" placeholder="Ваш комментарий" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                                </div>
+                                @if(!Auth::user()->isAdmin())
+                                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                        Добавить комментарий
+                                    </button>
+                                @endif
+                            </form>
+                            <div id="comment-list" class="mt-6 space-y-4">
+                                @foreach($comments as $comment)
+                                    <div class="comment-card p-4 bg-gray-100 rounded-lg">
+                                        <h5 class="font-bold">{{ $comment->user ? $comment->user->name : 'Unknown' }}</h5>
+                                        <p>{{ $comment->message }}</p>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <div>
+                            <form method="get" action="/posts/{{ $post->id }}/edit" class="mt-6">
+                                <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                    Редактировать
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            </div>
+        </div>
     </div>
-    <br>
-    <br>
-</main>
-<footer>
-    <p>&copy; 2024 Мой Блог</p>
-</footer>
+</x-app-layout>
 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
     $(document).ready(function() {
         function fetchComments() {
             $.ajax({
-                url: "http://127.0.0.1:8000/posts/{{ $post->id }}/comments/update",
+                url: "{{ url('/posts/' . $post->id . '/comments/update') }}",
                 method: "GET",
                 success: function(data) {
                     $('#comment-list').html(data);
@@ -170,5 +77,3 @@
         setInterval(fetchComments, 2000);
     });
 </script>
-</body>
-</html>

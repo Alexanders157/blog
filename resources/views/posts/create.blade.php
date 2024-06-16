@@ -1,136 +1,50 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="index, follow">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Create Post') }}
+        </h2>
+    </x-slot>
 
-        header {
-            background-color: #5675e3;
-            color: #fff;
-            text-align: center;
-            padding: 1rem;
-        }
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                        <h2>Создать пост</h2>
 
-        footer {
-            text-align: center;
-            padding: 1rem;
-            background-color: #5675e3;
-            color: #fff;
-        }
+                        <form action="{{ url('posts/store') }}" method="post" enctype="multipart/form-data" class="space-y-6">
+                            @csrf
+                            <div>
+                                <label for="choice">Выбрать категорию:</label>
+                                <select id="choice" name="category_id" class="block mt-1 w-full">
+                                    @foreach( $categories as $category )
+                                        <option value="{{$category->id}}"> {{ $category->title }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
+                            <div>
+                                <label for="title">Заголовок:</label>
+                                <input id="title" name="title" type="text" required autofocus class="block mt-1 w-full">
+                            </div>
 
-        .upper-text a {
-            color: #ccde99;
-        }
+                            <div>
+                                <label for="content">Описание:</label>
+                                <textarea id="content" name="content" rows="10" class="block mt-1 w-full" required></textarea>
+                            </div>
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+                            <div>
+                                <label for="photo">Выберите файл для вложения:</label>
+                                <input type="file" id="photo" name="photo" accept="image/*" class="block mt-1 w-full">
+                            </div>
 
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        input[type="file"] {
-            margin-top: 10px;
-        }
-
-        input[type="submit"] {
-            background-color: #5675e3;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #5675e3;
-        }
-
-        button[type="submit"]{
-            background: #5675e3;
-            color: white;
-        }
-
-    </style>
-
-    <script>
-        src =
-    </script>
-    <title>Блог</title>
-</head>
-<body>
-<div>
-</div>
-<header>
-    <h1>Блог о домашних животных</h1>
-    <p class="upper-text a" align=left><a href="all"> Главная </a></p>
-</header>
-<br>
-<br>
-<main>
-    <div class="container">
-        <h2>Создать пост</h2>
-
-        <form action="{{ url('posts/store') }}" method="post" enctype="multipart/form-data">
-            @csrf
-            <div>
-                <label for="choice">Выбрать категорию:</label>
-                <select id="choice" name="category_id">
-                    @foreach( $categories as $category )
-                        <option value="{{$category->id}}"> {{ $category->title }}</option>
-                    @endforeach
-                </select>
+                            <div>
+                                <input type="submit" value="Отправить" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="container">
-            <label for="title">Заголовок:</label><br>
-            <label for="title"></label>
-            <input id="title" name="title" required autofocus>
-
-            <br>
-            <br>
-
-            <label for="content">Описание:</label><br>
-            <textarea id="content" name="content" rows="10" cols="50" required></textarea>
-
-            <br>
-
-            <label for="content">Контент:</label><br>
-            <textarea id="content" name="content" rows="10" cols="50" required></textarea><br>
-
-            <label for="photo">Выберите файл для вложения:</label><br>
-            <input type="file" id="photo" name="photo" accept="image/*">
-            <br>
-            <br>
-            <input type="submit" value="Отправить">
-        </form>
+        </div>
     </div>
-
-    </div>
-    <br>
-    <br>
-    <footer>
-        <p>&copy; 2024 Мой Блог</p>
-    </footer>
-</main>
-</body>
-</html>
+</x-app-layout>
