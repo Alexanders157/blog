@@ -20,11 +20,10 @@ class PostFactory extends Factory
         return [
             'title' => $this->faker->title,
             'description' =>$this->faker->sentence,
-            'category' => $category->id,
+            'category_id' => $category->id,
             'publication_date' => $this->faker->date(),
             'content' => $this->faker->paragraph,
             'author' => $this->faker->name,
-            'update_date' => $this->faker->date(),
         ];
 
         //return [

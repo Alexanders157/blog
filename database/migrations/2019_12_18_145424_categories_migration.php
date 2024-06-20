@@ -18,8 +18,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        $seeder = new \Database\Seeders\CategoriesSeeder();
-        $seeder->run();
     }
 
     /**

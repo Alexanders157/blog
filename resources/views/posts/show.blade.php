@@ -64,7 +64,7 @@
         const commentList = document.getElementById('comment-list');
 
         commentForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // Предотвращаем стандартную отправку формы
+            event.preventDefault();
 
             fetch(this.action, {
                 method: 'POST',
@@ -77,14 +77,13 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Создаем новый элемент для комментария
                         const newComment = `
                        <div class="comment-card p-4 bg-gray-100 rounded-lg">
                            <h5 class="font-bold">${data.comment.user.name}</h5>
                            <p>${data.comment.message}</p>
                        </div>
                    `;
-                        commentList.innerHTML = newComment + commentList.innerHTML; // Добавляем новый комментарий в начало списка
+                        commentList.innerHTML = newComment + commentList.innerHTML;
                         commentForm.reset();
                     } else if (data.error) {
                         alert(data.error);

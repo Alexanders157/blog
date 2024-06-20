@@ -18,7 +18,7 @@ class CommentSeeder extends Seeder
         $posts = Post::all();
 
             foreach ($posts as $post) {
-                DB::insert('INSERT INTO comments (message, post_id) VALUES (?, ?)', [fake()->sentence, $post['id']]);
+                DB::insert('INSERT INTO comments (message, post_id, user_id) VALUES (?, ?)', [fake()->sentence, $post['id']]);
             }
 
     }

@@ -19,7 +19,8 @@ class Cat extends Pets implements PetsInterface
     public function run()
     {
         if ($this->speed) {
-            return "Кот по кличке: {$this->name} породы: {$this->breed}, {$this->append()}, а затем побежал бежит со скоростью {$this->speed} км/ч и у него ".self::PAWS." лапы";
+           // return "Кот по кличке: {$this->name} породы: {$this->breed}, {$this->append()}, а затем побежал бежит со скоростью {$this->speed} км/ч и у него ".self::PAWS." лапы";
+        return "Кот бежит";
         }
         return "Без спидов";
     }
