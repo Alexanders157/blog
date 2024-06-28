@@ -10,18 +10,33 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Mail\UserRegistered;
 
 class RegisteredUserController extends Controller
 {
     /**
      * Display the registration view.
      */
-    public function create(): View
+     public function create(): View
+     {
+         return view('auth.register');
+     }
+
+   /* protected function create(array $data)
     {
-        return view('auth.register');
-    }
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+
+        Mail::to('Alexander157@yandex.ru')->send(new UserRegistered($user));
+
+        return $user;
+    }*/
 
     /**
      * Handle an incoming registration request.

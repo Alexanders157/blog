@@ -11,6 +11,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use TokenGenerator\RandomTokenGenerator;
 
+/**
+ * @property string $name
+ * @property string $email
+ *
+ */
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
