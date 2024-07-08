@@ -109,6 +109,7 @@ class PostController extends Controller
             $post = new Post();
             $post->title = $request->input('title');
             $post->content = $request->input('content');
+            $post->category_id = $request->input('category_id');
             $post->save();
 
             $qrCode = QrCode::format('png')->size(200)->generate(url("/posts/{$post->id}"));
@@ -117,9 +118,9 @@ class PostController extends Controller
 
             $post->qr_code_path = "/codes/{$post->id}.png";
             $post->save();
-        });
 
-        return redirect('/posts');
+            return redirect('/posts');
+        });
 
     }
 
